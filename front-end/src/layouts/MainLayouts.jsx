@@ -3,16 +3,14 @@ import Footer from '../components/Footer';
 
 const MainLayout = ({ children }) => {
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Navbar Statis */}
+    <div className="flex flex-col min-h-screen relative">
       <Navbar />
 
-      {/* Konten Dinamis - Area yang bisa di-scroll */}
-      <main className="flex-grow">
+      {/* Tambahkan pt-20 agar konten tidak tertutup Navbar fixed */}
+      <main className="flex-grow pt-20 pb-20">
         {children}
       </main>
 
-      {/* Footer Statis */}
       <Footer />
     </div>
   );

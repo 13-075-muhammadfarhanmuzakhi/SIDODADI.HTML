@@ -1,38 +1,52 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
 
+    const menuItems = [
+        { name: 'Beranda', path: '/' },
+        { name: 'Profile', path: '/profile' },
+        { name: 'Layanan Desa', path: '/layanan' },
+        { name: 'Kontak', path: '/kontak' },
+        { name: 'Galeri & Artikel', path: '/galeri' },
+    ];
+
     return (
-        <nav className="fixed top-0 w-full z-50 flex justify-between items-center px-8 py-4 text-white">
-            {/* Logo Section */}
+        // Menambahkan bg-slate-900 dan shadow-md agar tidak transparan dan terlihat terpisah
+        <nav className="fixed top-0 w-full z-50 flex justify-between items-center px-8 py-4 text-white bg-slate-900 shadow-md">
             <div>
-                <h1 className="text-xl font-bold tracking-tight">DESA SIDODADI ASRI</h1>
-                <p className="text-xs opacity-80">Lampung Selatan</p>
+                <Link to="/">
+                    <h1 className="text-xl font-bold tracking-tight">DESA SIDODADI ASRI</h1>
+                    <p className="text-xs opacity-80">Lampung Selatan</p>
+                </Link>
             </div>
 
-            {/* Menu Button & Dropdown Container */}
             <div className="relative">
-                {/* Hamburger Icon */}
                 <button 
                     onClick={() => setIsOpen(!isOpen)}
-                    className="flex flex-col gap-1.5 focus:outline-none z-50 relative group"
+                    className="flex flex-col gap-1.5 focus:outline-none z-50 relative group cursor-pointer"
                 >
                     <span className={`h-0.5 w-8 bg-white transition-all ${isOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
                     <span className={`h-0.5 w-8 bg-white transition-all ${isOpen ? 'opacity-0' : ''}`}></span>
                     <span className={`h-0.5 w-8 bg-white transition-all ${isOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
                 </button>
 
-                {/* Dropdown Menu (Muncul saat Klik, Hilang saat Mouse Leave) */}
                 {isOpen && (
                     <div 
                         onMouseLeave={() => setIsOpen(false)}
-                        className="absolute right-0 top-full mt-4 w-64 bg-slate-900/90 backdrop-blur-md rounded-xl overflow-hidden border border-white/10 shadow-2xl transition-all animate-in fade-in slide-in-from-top-2"
+                        className="absolute right-0 top-full mt-4 w-64 bg-slate-900/95 backdrop-blur-md rounded-xl overflow-hidden border border-white/10 shadow-2xl transition-all"
                     >
                         <ul className="flex flex-col py-4">
-                            {['Beranda', 'Profile', 'Layanan Desa', 'Kontak', 'Galeri & Artikel'].map((item) => (
-                                <li key={item} className="px-6 py-3 hover:bg-blue-600/30 hover:text-blue-400 cursor-pointer transition text-lg font-medium">
-                                    {item}
+                            {menuItems.map((item) => (
+                                <li key={item.name}>
+                                    <Link 
+                                        to={item.path}
+                                        onClick={() => setIsOpen(false)}
+                                        className="block px-6 py-3 hover:bg-blue-600/30 hover:text-blue-400 transition text-lg font-medium"
+                                    >
+                                        {item.name}
+                                    </Link>
                                 </li>
                             ))}
                         </ul>
