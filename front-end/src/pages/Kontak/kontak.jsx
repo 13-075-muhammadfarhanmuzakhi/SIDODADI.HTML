@@ -37,8 +37,15 @@ const Kontak = () => {
                     <h1 className="text-4xl md:text-3xl font-bold mb-4">Punya Pertanyaan, Masukkan, atau Aspirasi?</h1>
                     <p className="text-lg opacity-90 mb-8 font-serif">Kami siap membantu Anda melalui layanan resmi kami.</p>
                     <button className="bg-[#fef9eb] text-[#1e293b] px-8 py-2 rounded-xl font-bold text-lg flex items-center gap-3 shadow-md border border-black/10">
+                    <a
+                        href="https://wa.me/628989174990?text=Halo%20saya%20ingin%20mengakses%20layanan%20Desa%20Sidodadi%20Asri"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-[#fef9eb] text-[#1e293b] px-8 py-2 rounded-xl font-bold text-lg flex items-center gap-3 shadow-md border border-black/10 hover:scale-105 transition"
+                        >
                         Akses Layanan
                         <img src={waIcon} className="w-6 h-6" alt="WA" />
+                    </a>
                     </button>
                 </div>
 
@@ -85,7 +92,9 @@ const Kontak = () => {
                 <div className="flex flex-col items-center gap-4">
                     <h4 className="font-bold text-[#1f2937] text-sm">Link Desa Sidodadi Asri</h4>
                     <div className="flex gap-6">
-                        <img src={instaIcon} className="w-9 h-9" alt="IG" />
+                        <a href="https://www.instagram.com/sidodadiasri?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer">
+                            <img src={instaIcon} className="w-9 h-9 hover:scale-110 transition cursor-pointer" alt="Instagram Desa Sidodadi Asri"/>
+                        </a>
                         <img src={fbIcon} className="w-9 h-9" alt="FB" />
                         <img src={webIcon} className="w-9 h-9" alt="Web" />
                         <img src={tiktokIcon} className="w-9 h-9" alt="TikTok" />
