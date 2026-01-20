@@ -6,10 +6,10 @@ const Navbar = () => {
 
     const menuItems = [
         { name: 'Beranda', path: '/' },
-        { name: 'Profile', path: '/profile' },
-        { name: 'Layanan Desa', path: '/layanan' },
-        { name: 'Kontak', path: '/kontak' },
-        { name: 'Galeri & Artikel', path: '/galeri' },
+        { name: 'Profile', path: '/Profile' },
+        { name: 'Layanan Desa', path: '/Layanan' },
+        { name: 'Kontak', path: '/Kontak' },
+        { name: 'Galeri & Artikel', path: '/Galeri' },
     ];
 
     return (

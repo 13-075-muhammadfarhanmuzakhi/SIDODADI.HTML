@@ -1,20 +1,20 @@
 import React from 'react';
 
 // 1. Import semua gambar dari folder src/assets/contacts
-import bgUp from '../assets/contacts/bg-up.png';
-import bgPattern from '../assets/contacts/bg.png';
-import waIcon from '../assets/contacts/wa.png';
-import locIcon from '../assets/contacts/loc-mark.svg';
-import mailIcon from '../assets/contacts/mail.svg';
-import fileIcon from '../assets/contacts/file.svg';
-import clockIcon from '../assets/contacts/clock.svg';
-import checkIcon1 from '../assets/contacts/check.svg';
-import checkIcon2 from '../assets/contacts/check2.svg';
-import checkIcon3 from '../assets/contacts/check3.svg';
-import instaIcon from '../assets/contacts/insta.svg';
-import fbIcon from '../assets/contacts/fb-circle.svg';
-import webIcon from '../assets/contacts/circle-web.svg';
-import tiktokIcon from '../assets/contacts/tiktok.png';
+import bgUp from "../../assets/contacts/bg-up.png";
+import bgPattern from "../../assets/contacts/bg.png";
+import waIcon from "../../assets/contacts/wa.png";
+import locIcon from "../../assets/contacts/loc-mark.svg";
+import mailIcon from "../../assets/contacts/mail.svg";
+import fileIcon from "../../assets/contacts/file.svg";
+import clockIcon from "../../assets/contacts/clock.svg";
+import checkIcon1 from "../../assets/contacts/check.svg";
+import checkIcon2 from "../../assets/contacts/check2.svg";
+import checkIcon3 from "../../assets/contacts/check3.svg";
+import instaIcon from "../../assets/contacts/insta.svg";
+import fbIcon from "../../assets/contacts/fb-circle.svg";
+import webIcon from "../../assets/contacts/circle-web.svg";
+import tiktokIcon from "../../assets/contacts/tiktok.png";
 
 const Kontak = () => {
     return (
@@ -27,14 +27,14 @@ const Kontak = () => {
 
             {/* Background Pola Daun */}
             <div className="absolute inset-0 z-0 pointer-events-none">
-                <img src={bgPattern} alt="Background Pattern" className="w-full h-full object-cover opacity-40" />
+                <img src={bgPattern} alt="Background Pattern" className="w-full h-full object-auto opacity-40" />
             </div>
 
             <div className="relative z-10 w-full max-w-6xl px-6 flex flex-col items-center">
                 
                 {/* Banner Utama */}
-                <div className="bg-[#5f7f8f] rounded-[50px] p-12 mt-20 mb-20 text-white shadow-2xl w-full max-w-4xl flex flex-col items-center text-center">
-                    <h1 className="text-4xl md:text-5xl font-bold mb-4">Punya Pertanyaan, Masukkan, atau Aspirasi?</h1>
+                <div className="bg-[#5f7f8f] rounded-[50px] p-12 mt-20 mb-20 text-black shadow-2xl w-full max-w-4xl flex flex-col items-center text-center">
+                    <h1 className="text-4xl md:text-3xl font-bold mb-4">Punya Pertanyaan, Masukkan, atau Aspirasi?</h1>
                     <p className="text-lg opacity-90 mb-8 font-serif">Kami siap membantu Anda melalui layanan resmi kami.</p>
                     <button className="bg-[#fef9eb] text-[#1e293b] px-8 py-2 rounded-xl font-bold text-lg flex items-center gap-3 shadow-md border border-black/10">
                         Akses Layanan
