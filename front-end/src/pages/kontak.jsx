@@ -1,6 +1,4 @@
 import React from 'react';
-
-// 1. Import semua gambar dari folder src/assets/contacts
 import bgUp from '../assets/contacts/bg-up.png';
 import bgPattern from '../assets/contacts/bg.png';
 import waIcon from '../assets/contacts/wa.png';
@@ -18,8 +16,7 @@ import tiktokIcon from '../assets/contacts/tiktok.png';
 
 const Kontak = () => {
     return (
-        <div className="min-h-screen w-full bg-[#f3ecdc] flex flex-col items-center relative overflow-x-hidden pt-20 pb-10">
-            
+<div className="min-h-screen w-full bg-[#f3ecdc] flex flex-col items-center relative overflow-x-hidden pt-32 pb-40">            
             {/* Background Atas */}
             <div className="w-full h-[400px] absolute top-0 left-0 z-0">
                 <img src={bgUp} alt="Background Top" className="w-full h-full object-cover" />
@@ -33,8 +30,8 @@ const Kontak = () => {
             <div className="relative z-10 w-full max-w-6xl px-6 flex flex-col items-center">
                 
                 {/* Banner Utama */}
-                <div className="bg-[#5f7f8f] rounded-[50px] p-12 mt-20 mb-20 text-white shadow-2xl w-full max-w-4xl flex flex-col items-center text-center">
-                    <h1 className="text-4xl md:text-5xl font-bold mb-4">Punya Pertanyaan, Masukkan, atau Aspirasi?</h1>
+                <div className="bg-[#5f7f8f] rounded-[50px] p-12 mt-20 mb-20 text-black shadow-xl w-full max-w-4xl flex flex-col items-center text-center">
+                    <h1 className="text-4xl md:text-4xl font-bold mb-4">Punya Pertanyaan, Masukkan, atau Aspirasi?</h1>
                     <p className="text-lg opacity-90 mb-8 font-serif">Kami siap membantu Anda melalui layanan resmi kami.</p>
                     <button className="bg-[#fef9eb] text-[#1e293b] px-8 py-2 rounded-xl font-bold text-lg flex items-center gap-3 shadow-md border border-black/10">
                         Akses Layanan
@@ -82,14 +79,16 @@ const Kontak = () => {
                 </div>
 
                 {/* Social Media */}
-                <div className="flex flex-col items-center gap-4">
-                    <h4 className="font-bold text-[#1f2937] text-sm">Link Desa Sidodadi Asri</h4>
-                    <div className="flex gap-6">
-                        <img src={instaIcon} className="w-9 h-9" alt="IG" />
-                        <img src={fbIcon} className="w-9 h-9" alt="FB" />
-                        <img src={webIcon} className="w-9 h-9" alt="Web" />
-                        <img src={tiktokIcon} className="w-9 h-9" alt="TikTok" />
-                    </div>
+                <div className="relative z-10 flex flex-col items-center gap-4 mt-10">
+                <h4 className="font-bold text-[#1f2937] text-sm uppercase tracking-wider">
+                    Link Desa Sidodadi Asri
+                </h4>
+                <div className="flex gap-6">
+                    <img src={instaIcon} className="w-9 h-9 cursor-pointer hover:scale-110 transition" alt="IG" />
+                    <img src={fbIcon} className="w-9 h-9 cursor-pointer hover:scale-110 transition" alt="FB" />
+                    <img src={webIcon} className="w-9 h-9 cursor-pointer hover:scale-110 transition" alt="Web" />
+                    <img src={tiktokIcon} className="w-9 h-9 cursor-pointer hover:scale-110 transition rounded-full" alt="TikTok" />
+                </div>
                 </div>
             </div>
         </div>

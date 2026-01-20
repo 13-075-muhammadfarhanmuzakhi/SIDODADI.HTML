@@ -3,6 +3,7 @@ import MainLayout from './layouts/MainLayouts'; // Pastikan nama file sesuai (Ma
 import Home from './pages/home'; // Perhatikan besar kecil huruf nama file (Home.jsx atau home.jsx)
 import Login from './pages/login';
 import Kontak from './pages/kontak';
+import Galeri from './pages/galeri';
 
 // Komponen Placeholder: Tampilan sementara untuk halaman yang belum dibuat
 const PlaceholderPage = ({ title }) => (
@@ -25,6 +26,7 @@ function App() {
       
       {/* 2. Ganti PlaceholderPage dengan <Kontak /> */}
       <Route path="/kontak" element={<MainLayout><Kontak /></MainLayout>} />
+      <Route path="/galeri" element={<MainLayout><Galeri /></MainLayout>} />
 
       <Route path="/profile" element={<MainLayout><PlaceholderPage title="Profil Desa" /></MainLayout>} />
       <Route path="/layanan" element={<MainLayout><PlaceholderPage title="Layanan Desa" /></MainLayout>} />

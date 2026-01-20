@@ -6,8 +6,8 @@ const MainLayout = ({ children }) => {
     <div className="flex flex-col min-h-screen relative">
       <Navbar />
 
-      {/* Tambahkan pt-20 agar konten tidak tertutup Navbar fixed */}
-      <main className="flex-grow pt-20 pb-20">
+      {/* pb-10 dihapus agar tidak ada gap putih di atas footer */}
+      <main className="flex-grow pt-20">
         {children}
       </main>
 
