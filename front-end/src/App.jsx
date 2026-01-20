@@ -4,7 +4,7 @@ import MainLayout from "./layouts/MainLayout";
 // Pages
 import Home from "./pages/Home/Home";
 import Kontak from "./pages/Kontak/kontak";
-import Login from "./pages/Login/login";
+// import Login from "./pages/Login/login";
 import Profile from "./pages/Profil/Profil";
 import Galeri from "./pages/Galeri/Galeri"
 import Layanan from "./pages/Layanan/Layanan";
