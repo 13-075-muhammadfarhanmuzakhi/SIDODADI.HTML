@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+/* Menghapus margin default dan memastikan tinggi layar penuh */
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-color: #ffffff;
+  color: #1a1a1a;
+}
