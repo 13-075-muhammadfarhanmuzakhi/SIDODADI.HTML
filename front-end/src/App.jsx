@@ -12,6 +12,7 @@ import Layanan from "./pages/Layanan/Layanan";
 import AdminLogin from "./pages/Admin/Login";
 import AdminLayout from "./pages/Admin/Layouts/AdminLayouts";
 import AdminDashboard from "./pages/Admin/Dashboard";
+import AdminArtikel from "./pages/Admin/Artikel";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
       {/* ADMIN AREA */}
       <Route path="/admin" element={<AdminLayout />}>
         <Route path="dashboard" element={<AdminDashboard />} />
+        <Route path="artikel" element={<AdminArtikel />} />
       </Route>
     </Routes>
   );

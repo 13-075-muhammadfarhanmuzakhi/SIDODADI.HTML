@@ -8,6 +8,7 @@ class Article extends Model
 {
     protected $table = 'artikel';
     protected $primaryKey = 'id_artikel';
+    public $timestamps = false;
 
     protected $fillable = [
         'judul_artikel',

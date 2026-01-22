@@ -73,7 +73,7 @@ const Home = () => {
                   className="rounded-3xl border border-slate-200 overflow-hidden hover:shadow-xl transition"
                 >
                   <img
-                    src={`http://127.0.0.1:8000/images/${item.img}`}
+                    src={`http://127.0.0.1:8000/artikel/${item.img}`}
                     alt={item.judul_artikel}
                     className="h-48 w-full object-cover"
                   />
