@@ -130,61 +130,52 @@ const Artikel = () => {
 
       {/* ================= MODAL ================= */}
       {show && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center">
-          <form
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+            <form
             onSubmit={submit}
-            className="bg-white p-6 w-96 space-y-3 rounded"
-          >
-            <h2 className="font-bold text-lg">
-              {editId ? "Edit" : "Tambah"} Artikel
+            className="bg-white p-8 w-full max-w-2xl max-h-[90vh] overflow-y-auto space-y-4 rounded-2xl"
+            >
+            <h2 className="font-bold text-xl">
+                {editId ? "Edit" : "Tambah"} Artikel
             </h2>
 
+            <label className="text-sm font-semibold">Judul Artikel</label>
             <input
-              value={judul}
-              onChange={(e) => setJudul(e.target.value)}
-              placeholder="Judul"
-              className="w-full border p-2"
-              required
+                value={judul}
+                onChange={(e) => setJudul(e.target.value)}
+                className="w-full border p-3 rounded"
+                required
             />
 
+            <label className="text-sm font-semibold">Deskripsi</label>
             <textarea
-              value={deskripsi}
-              onChange={(e) => setDeskripsi(e.target.value)}
-              placeholder="Deskripsi"
-              className="w-full border p-2"
-              required
+                value={deskripsi}
+                onChange={(e) => setDeskripsi(e.target.value)}
+                className="w-full border p-3 h-48 resize-y rounded"
+                required
             />
 
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-            />
+            <label className="text-sm font-semibold">Gambar</label>
+            <input type="file" accept="image/*" onChange={handleImageChange} />
 
-            {/* PREVIEW GAMBAR */}
             {preview && (
-              <img
+                <img
                 src={preview}
-                alt="Preview"
-                className="w-full h-40 object-cover rounded border"
-              />
+                className="w-full h-64 object-cover rounded border"
+                />
             )}
 
-            <div className="flex justify-end gap-2 pt-2">
-              <button
-                type="button"
-                onClick={() => setShow(false)}
-                className="px-4 py-1 border rounded"
-              >
+            <div className="flex justify-end gap-3 pt-4">
+                <button type="button" onClick={() => setShow(false)}>
                 Batal
-              </button>
-              <button className="bg-blue-600 text-white px-4 py-1 rounded">
+                </button>
+                <button className="bg-blue-600 text-white px-6 py-2 rounded">
                 Simpan
-              </button>
+                </button>
             </div>
-          </form>
+            </form>
         </div>
-      )}
+        )}
     </>
   );
 };
