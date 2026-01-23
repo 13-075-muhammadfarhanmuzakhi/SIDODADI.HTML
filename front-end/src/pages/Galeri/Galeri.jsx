@@ -1,42 +1,45 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from 'react-router-dom';
 
-import bgPattern from '../../assets/contacts/bg.png';
-import bgUp from '../../assets/contacts/bg-up.png';
-import arrowIcon from '../../assets/contacts/circle-web.svg';
+import bgPattern from "../../assets/contacts/bg.png";
+import bgUp from "../../assets/contacts/bg-up.png";
+import arrowIcon from "../../assets/contacts/circle-web.svg";
+
+const API = "http://127.0.0.1:8000/api/artikel";
 
 const Galeri = () => {
-    const [isExpanded, setIsExpanded] = useState(false);
-    const sectionRef = useRef(null);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [artikels, setArtikels] = useState([]);
+  const sectionRef = useRef(null);
 
-    // Data Gabungan
-    const featuredContent = [
-        { id: 1, date: "15 Jan 2024", title: "PEMBANGUNAN JALAN DESA", desc: "Dokumentasi perbaikan infrastruktur utama desa.", img: bgUp, tag: "Pembangunan" },
-        { id: 2, date: "10 Jan 2024", title: "PASAR TRADISIONAL", img: bgUp, tag: "Ekonomi" },
-        { id: 3, date: "05 Jan 2024", title: "WISATA ALAM DESA", img: bgUp, tag: "Wisata" },
-    ];
+  useEffect(() => {
+    fetch(API)
+      .then((res) => res.json())
+      .then((data) => setArtikels(data));
+  }, []);
 
-    const additionalContent = [
-        { id: 4, date: "8 Jan 2024", title: "PERTUNJUKAN TARI TRADISIONAL", desc: "Penampilan memukau dari sanggar tari desa.", img: bgUp, type: "Galeri" },
-        { id: 5, date: "5 Jan 2024", title: "PELATIHAN UMKM DIGITAL", desc: "Meningkatkan kualitas produk lokal melalui bimbingan teknis.", img: bgUp, type: "Artikel" },
-        { id: 6, date: "3 Jan 2024", title: "KEGIATAN KOPERASI DESA", desc: "Pengembangan ekonomi mandiri warga.", img: bgUp, type: "Kegiatan" },
-    ];
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded);
+    if (!isExpanded) {
+      setTimeout(() => {
+        sectionRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }, 100);
+    }
+  };
 
-    const toggleExpand = () => {
-        setIsExpanded(!isExpanded);
-        if (!isExpanded) {
-            setTimeout(() => {
-                sectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 100);
-        }
-    };
+  // ================= DATA SPLIT =================
+  const featured = artikels.slice(0, 3);
+  const additional = artikels.slice(3);
 
-    return (
-        <div className="min-h-screen w-full bg-[#f3ecdc] relative overflow-x-hidden pt-32 pb-40 px-6 flex flex-col items-center">
-            
-            <div className="fixed inset-0 z-0 pointer-events-none opacity-30">
-                <img src={bgPattern} alt="bg" className="w-full h-full object-cover" />
-            </div>
+  return (
+    <div className="min-h-screen w-full bg-[#f3ecdc] relative overflow-x-hidden pt-28 pb-20 px-6 flex flex-col items-center font-sans">
+      {/* Background */}
+      <div className="fixed inset-0 z-0 pointer-events-none opacity-30">
+        <img src={bgPattern} alt="bg" className="w-full h-full object-cover" />
+      </div>
 
             <div className="relative z-10 w-full max-w-6xl">
                 {/* Header Section */}
@@ -49,60 +52,114 @@ const Galeri = () => {
                     </p>
                 </div>
 
-                {/* Grid Konten Utama */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-                    <Link to="/artikel-desa" className="md:col-span-2 relative group overflow-hidden rounded-[40px] shadow-2xl h-[450px] md:h-[600px] border-4 border-white/30 block text-left">
-                        <img src={featuredContent[0].img} alt="featured" className="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-transparent flex flex-col justify-end p-10 text-white">
-                            <span className="bg-[#93ff8d] text-black text-[10px] font-bold px-4 py-1 rounded-full w-fit mb-4 uppercase tracking-widest">{featuredContent[0].tag}</span>
-                            <p className="text-[12px] opacity-80 mb-1">{featuredContent[0].date}</p>
-                            <h2 className="text-2xl md:text-4xl font-bold mb-3 lowercase first-letter:uppercase tracking-tight">{featuredContent[0].title}</h2>
-                            <p className="text-sm md:text-base opacity-70 italic">{featuredContent[0].desc}</p>
-                        </div>
-                    </Link>
+        {/* ================= GALERI UTAMA ================= */}
+        {featured.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+            {/* Kartu Besar */}
+            <div className="md:col-span-2 relative group overflow-hidden rounded-[40px] h-[450px] md:h-[600px]">
+              <img
+                src={
+                  featured[0].img
+                    ? `http://127.0.0.1:8000/artikel/${featured[0].img}`
+                    : bgUp
+                }
+                className="w-full h-full object-cover"
+                alt="featured"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-10 text-white">
+                <p className="text-sm opacity-80 mb-1">
+                  {new Date(featured[0].tgl_post).toLocaleDateString("id-ID")}
+                </p>
+                <h2 className="text-4xl font-bold mb-3">
+                  {featured[0].judul_artikel}
+                </h2>
+                <p className="opacity-70 italic max-w-xl">
+                  {featured[0].deskripsi}
+                </p>
+              </div>
+            </div>
 
-                    <div className="flex flex-col gap-6">
-                        {featuredContent.slice(1).map((item) => (
-                            <Link key={item.id} to="/artikel-desa" className="relative group overflow-hidden rounded-[35px] shadow-xl h-[215px] md:h-[287px] border-4 border-white/30 block text-left">
-                                <img src={item.img} alt="side" className="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
-                                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition flex flex-col justify-end p-6 text-white">
-                                    <span className="bg-[#93ff8d] text-black text-[10px] font-bold px-3 py-1 rounded-full w-fit mb-2 uppercase tracking-widest">{item.tag}</span>
-                                    <p className="text-[10px] opacity-80">{item.date}</p>
-                                    <h3 className="font-bold text-lg md:text-xl lowercase first-letter:uppercase">{item.title}</h3>
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
+            {/* Kartu Kecil */}
+            <div className="flex flex-col gap-6">
+              {featured.slice(1).map((item) => (
+                <div
+                  key={item.id_artikel}
+                  className="relative overflow-hidden rounded-[35px] h-[215px]"
+                >
+                  <img
+                    src={
+                      item.img
+                        ? `http://127.0.0.1:8000/artikel/${item.img}`
+                        : bgUp
+                    }
+                    className="w-full h-full object-cover"
+                    alt={item.judul_artikel}
+                  />
+                  <div className="absolute inset-0 bg-black/50 flex flex-col justify-end p-6 text-white">
+                    <p className="text-xs opacity-80">
+                      {new Date(item.tgl_post).toLocaleDateString("id-ID")}
+                    </p>
+                    <h3 className="font-bold text-xl">
+                      {item.judul_artikel}
+                    </h3>
+                  </div>
                 </div>
+              ))}
+            </div>
+          </div>
+        )}
 
-                {/* Tombol Lihat Semua */}
-                {!isExpanded && (
-                    <div className="flex justify-center mb-16">
-                        <button onClick={toggleExpand} className="bg-[#111827] text-white px-5 py-2 rounded-full font-bold text-xs hover:bg-black transition-all flex items-center gap-2 shadow-lg">
-                            Lihat Semua Dokumentasi
-                            <img src={arrowIcon} alt="arrow" className="w-3 h-3 invert" />
-                        </button>
-                    </div>
-                )}
+        {/* ================= BUTTON ================= */}
+        {!isExpanded && (
+          <div className="flex justify-center mb-20">
+            <button
+              onClick={toggleExpand}
+              className="bg-[#111827] text-white px-6 py-2.5 rounded-full font-bold text-sm flex items-center gap-2"
+            >
+              Lihat Semua Dokumentasi
+              <img src={arrowIcon} alt="arrow" className="w-4 h-4 invert" />
+            </button>
+          </div>
+        )}
 
-                {/* Konten Tambahan */}
-                <div ref={sectionRef} className={`transition-all duration-1000 overflow-hidden ${isExpanded ? 'max-h-[5000px] opacity-100' : 'max-h-0 opacity-0'}`}>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pb-32">
-                        {additionalContent.map((article) => (
-                            <Link key={article.id} to="/artikel-desa" className="bg-white/50 backdrop-blur-md rounded-[40px] overflow-hidden shadow-lg border border-white/50 group hover:bg-white transition-all block text-left">
-                                <div className="h-56 overflow-hidden relative">
-                                    <img src={article.img} alt="news" className="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
-                                    <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md text-white text-[9px] px-3 py-1 rounded-full font-bold uppercase">{article.type}</div>
-                                </div>
-                                <div className="p-8">
-                                    <p className="text-[10px] text-gray-500 font-bold uppercase mb-2 tracking-widest">{article.date}</p>
-                                    <h3 className="text-xl font-bold text-gray-900 mb-4 lowercase first-letter:uppercase">{article.title}</h3>
-                                    <p className="text-xs text-gray-600 italic line-clamp-3">{article.desc}</p>
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
+        {/* ================= LIST TAMBAHAN ================= */}
+        <div
+          ref={expandedSectionRef}
+          className={`transition-all duration-700 overflow-hidden ${
+            isExpanded ? "max-h-[5000px] opacity-100" : "max-h-0 opacity-0"
+          }`}
+        >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {additional.map((item) => (
+              <div
+                key={item.id_artikel}
+                className="bg-white rounded-[40px] overflow-hidden shadow-lg"
+              >
+                <div className="h-60 overflow-hidden">
+                  <img
+                    src={
+                      item.img
+                        ? `http://127.0.0.1:8000/artikel/${item.img}`
+                        : bgUp
+                    }
+                    className="w-full h-full object-cover"
+                    alt={item.judul_artikel}
+                  />
                 </div>
+                <div className="p-8">
+                  <p className="text-xs text-gray-500 mb-2">
+                    {new Date(item.tgl_post).toLocaleDateString("id-ID")}
+                  </p>
+                  <h3 className="text-2xl font-bold mb-3">
+                    {item.judul_artikel}
+                  </h3>
+                  <p className="text-sm italic text-gray-600 line-clamp-3">
+                    {item.deskripsi}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
 
                 {/* --- TOMBOL GALERI SPESIAL DIKECILKAN & DIPOSISIKAN ULANG --- */}
                 <Link 
@@ -116,6 +173,7 @@ const Galeri = () => {
                 </Link>
             </div>
         </div>
+    </div>
     );
 };
 
