@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Database\Seeder;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Hash;
 
@@ -14,7 +15,9 @@ class AdminSeeder extends Seeder
             'nik' => '1234567890123456',
             'username' => 'admin',
             'password' => Hash::make('admin123'),
-            'level' => 'Admin'
+            'no_telp' => '081234567890',
+            'foto' => null,
+            'level' => 'Admin',
         ]);
     }
 }

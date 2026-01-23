@@ -33,10 +33,11 @@ class AdminAuthController extends Controller
         return response()->json([
             'message' => 'Login berhasil',
             'admin' => [
-                'id' => $admin->id_admin,
+                'id_admin' => $admin->id_admin,
                 'nama' => $admin->nama,
                 'username' => $admin->username,
-                'level' => $admin->level
+                'level' => $admin->level,
+                'foto' => $admin->foto, // 👈 KIRIM FOTO
             ]
         ]);
     }

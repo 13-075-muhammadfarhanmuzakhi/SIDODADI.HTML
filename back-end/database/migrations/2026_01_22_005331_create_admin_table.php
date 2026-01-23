@@ -12,11 +12,12 @@ return new class extends Migration {
             $table->string('nama', 150);
             $table->char('nik', 16);
             $table->string('username', 50)->unique();
+            $table->string('foto')->nullable(); // ✅ FOTO ADMIN
             $table->string('password', 255);
             $table->string('no_telp', 16)->nullable();
             $table->enum('level', ['Admin', 'Operator']);
             $table->timestamps();
-        });
+        });        
     }
 
     public function down(): void

@@ -13,6 +13,7 @@ import AdminLogin from "./pages/Admin/Login";
 import AdminLayout from "./pages/Admin/Layouts/AdminLayouts";
 import AdminDashboard from "./pages/Admin/Dashboard";
 import AdminArtikel from "./pages/Admin/Artikel";
+import Akun from "./pages/Admin/Akun";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
       <Route path="/admin" element={<AdminLayout />}>
         <Route path="dashboard" element={<AdminDashboard />} />
         <Route path="artikel" element={<AdminArtikel />} />
+        <Route path="akun" element={<Akun />} />
       </Route>
     </Routes>
   );

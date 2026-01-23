@@ -1,58 +1,77 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const navigate = useNavigate();
 
-  const handleLogout = () => {
+  // ambil admin dari localStorage
+  const admin = JSON.parse(localStorage.getItem("admin"));
+
+  const logout = () => {
     localStorage.removeItem("admin");
     navigate("/admin/login");
   };
 
   return (
     <aside className="w-72 bg-[#3f3f3f] text-white flex flex-col p-6">
-      {/* Profile */}
+      {/* ================= PROFILE ================= */}
       <div className="flex flex-col items-center mb-8">
         <img
-          src="https://via.placeholder.com/80"
-          alt="Kepala Desa"
-          className="rounded-full mb-3"
+          src={
+            admin?.foto
+              ? `http://127.0.0.1:8000/admin/${admin.foto}`
+              : "https://via.placeholder.com/80"
+          }
+          className="w-20 h-20 rounded-full object-cover"
         />
-        <h3 className="font-semibold text-sm">RAHLI SIBRANTO</h3>
-        <p className="text-xs text-white/70">KEPALA DESA</p>
+
+        <h3 className="font-semibold text-sm uppercase">
+          {admin?.nama || "ADMIN"}
+        </h3>
+
+        <p className="text-xs text-white/60">
+          {admin?.level || ""}
+        </p>
 
         <button
-          onClick={handleLogout}
+          onClick={logout}
           className="mt-3 text-xs bg-red-600 px-4 py-1 rounded"
         >
           KELUAR
         </button>
       </div>
 
-      {/* Menu */}
+      {/* ================= MENU ================= */}
       <nav className="space-y-3 text-sm">
-        <MenuItem to="/admin/dashboard" text="Tinjau Panel" />
-        <MenuItem to="/admin/dashboard" text="Pengaturan" />
-        <MenuItem to="/" text="Beranda Utama" />
-        <MenuItem to="/admin/dashboard" text="Profil Desa" />
-        <MenuItem to="/admin/artikel" text="Media & Artikel" />
-        <MenuItem to="/admin/dashboard" text="Form Layanan" />
-        <MenuItem to="/kontak" text="Kontak" />
+        <Link
+          to="/admin/dashboard"
+          className="block px-4 py-2 rounded hover:bg-white/10"
+        >
+          Tinjau Panel
+        </Link>
+
+        <Link
+          to="/admin/artikel"
+          className="block px-4 py-2 rounded hover:bg-white/10"
+        >
+          Media & Artikel
+        </Link>
+
+        {/* <Link
+          to="/"
+          className="block px-4 py-2 rounded hover:bg-white/10"
+        >
+          Beranda Utama
+        </Link> */}
+
+        <Link
+          to="/admin/Akun"
+          className="block px-4 py-2 rounded hover:bg-white/10"
+        >
+          Data Admin
+        </Link>
       </nav>
     </aside>
   );
 };
-
-const MenuItem = ({ text, to }) => (
-  <NavLink
-    to={to}
-    className={({ isActive }) =>
-      `block px-4 py-2 rounded cursor-pointer ${
-        isActive ? "bg-white/20" : "hover:bg-white/10"
-      }`
-    }
-  >
-    {text}
-  </NavLink>
-);
 
 export default Sidebar;
