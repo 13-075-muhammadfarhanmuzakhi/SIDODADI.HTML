@@ -8,6 +8,7 @@ import Login from "./pages/Login/login";
 import Profile from "./pages/Profil/Profil";
 import Galeri from "./pages/Galeri/Galeri"
 import Layanan from "./pages/Layanan/Layanan";
+import GaleriSpesial from './pages/Galeri/GaleriSpesial';
 
 function App() {
   return (
@@ -18,6 +19,8 @@ function App() {
         <Route path="/Profile" element={<Profile />} />
         <Route path="/Galeri" element={<Galeri />} />
         <Route path="/Layanan" element={<Layanan />} />
+        <Route path="/" element={<Galeri />} />
+        <Route path="/galeri-spesial" element={<GaleriSpesial />} />
       </Route>
 
       {/* halaman tanpa layout (contoh login) */}
