@@ -150,5 +150,5 @@ const Galeri = () => {
     </div>
   );
 };
-
+11111111
 export default Galeri;
