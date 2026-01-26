@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import heroVideo from "../../assets/videos/Desa-Profile.mp4";
 
 const Home = () => {
   const [articles, setArticles] = useState([]);
@@ -22,17 +21,26 @@ const Home = () => {
     <main className="flex flex-col">
       {/* ================= HERO SECTION ================= */}
       <section className="relative h-screen w-full overflow-hidden">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-        >
-          <source src={heroVideo} type="video/mp4" />
-        </video>
+        {/* YouTube Video Background */}
+        <iframe
+          className="absolute inset-0 w-full h-full pointer-events-none"
+          style={{
+            width: "100vw",
+            height: "56.25vw", // 16:9 aspect ratio
+            minHeight: "100vh",
+            minWidth: "177.77vh", // 16:9 aspect ratio
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+          src="https://www.youtube.com/embed/MAcDzuu_jOc?autoplay=1&mute=1&loop=1&playlist=MAcDzuu_jOc&controls=0&showinfo=0&modestbranding=1&rel=0&iv_load_policy=3&disablekb=1"
+          title="Video Profil Desa Sidodadi Asri"
+          frameBorder="0"
+          allow="autoplay; encrypted-media"
+        />
 
-        <div className="absolute inset-0 bg-slate-900/50 flex flex-col justify-center items-center text-center px-6">
+        <div className="absolute inset-0 bg-slate-900/50 flex flex-col justify-center items-center text-center px-6 z-10">
           <h1 className="text-white text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">
             Selamat Datang di Desa Sidodadi Asri
           </h1>
