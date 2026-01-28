@@ -13,6 +13,7 @@ import AdminLogin from "./pages/Admin/Login";
 import AdminLayout from "./pages/Admin/Layouts/AdminLayouts";
 import AdminDashboard from "./pages/Admin/Dashboard";
 import AdminArtikel from "./pages/Admin/Artikel";
+import AdminLayanan from "./pages/Admin/Layanan";
 import Akun from "./pages/Admin/Akun";
 import GaleriSpesial from './pages/Galeri/GaleriSpesial';
 
@@ -26,7 +27,6 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/galeri" element={<Galeri />} />
         <Route path="/layanan" element={<Layanan />} />
-        <Route path="/" element={<Galeri />} />
         <Route path="/galeri-spesial" element={<GaleriSpesial />} />
       </Route>
 
@@ -36,6 +36,7 @@ function App() {
       {/* ADMIN AREA */}
       <Route path="/admin" element={<AdminLayout />}>
         <Route path="dashboard" element={<AdminDashboard />} />
+        <Route path="layanan" element={<AdminLayanan />} />
         <Route path="artikel" element={<AdminArtikel />} />
         <Route path="akun" element={<Akun />} />
       </Route>

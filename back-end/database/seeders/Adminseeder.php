@@ -16,7 +16,7 @@ class AdminSeeder extends Seeder
             'username' => 'admin',
             'password' => Hash::make('admin123'),
             'no_telp' => '081234567890',
-            'foto' => null,
+            'foto' => 'Admin.jpg',
             'level' => 'Admin',
         ]);
     }

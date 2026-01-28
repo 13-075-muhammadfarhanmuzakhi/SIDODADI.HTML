@@ -56,12 +56,12 @@ const Sidebar = () => {
           Media & Artikel
         </Link>
 
-        {/* <Link
-          to="/"
+        <Link
+          to="/admin/layanan"
           className="block px-4 py-2 rounded hover:bg-white/10"
         >
-          Beranda Utama
-        </Link> */}
+          Layanan Desa
+        </Link>
 
         <Link
           to="/admin/Akun"
