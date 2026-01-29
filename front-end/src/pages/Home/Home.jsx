@@ -34,7 +34,7 @@ const Home = () => {
 
         <div className="absolute inset-0 bg-slate-900/50 flex flex-col justify-center items-center text-center px-6">
           <h1 className="text-white text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">
-            Selamat Datang di Desa Sidodadi Asri
+            Selamat Datang di Desa Sidodadii Asri
           </h1>
           <p className="text-white/90 text-lg md:text-xl max-w-2xl">
             Kec. Jati Agung, Kab. Lampung Selatan, Provinsi Lampung

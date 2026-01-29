@@ -1,9 +1,13 @@
-const Profile = () => {
+import SejarahSection from "./SejarahSection";
+import WarlokSection from "./WarlokSection";
+
+const Profil = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <h1 className="text-3xl font-bold">Halaman Profile</h1>
-    </div>
+    <main className="w-full">
+      <SejarahSection />
+      <WarlokSection />
+    </main>
   );
 };
 
-export default Profile;
+export default Profil;
