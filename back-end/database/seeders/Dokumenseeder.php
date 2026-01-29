@@ -18,5 +18,10 @@ class DokumenSeeder extends Seeder
             'nama_dokumen' => 'Akta Kelahiran',
             'deskripsi' => 'Pengajuan pembuatan akta kelahiran'
         ]);
+
+        Dokumen::create([
+            'nama_dokumen' => 'Surat Izin Keramaian',
+            'deskripsi' => 'Surat izin untuk acara keramaian atau hajatan'
+        ]);
     }
 }

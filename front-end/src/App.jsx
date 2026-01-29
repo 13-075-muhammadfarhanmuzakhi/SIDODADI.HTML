@@ -1,20 +1,23 @@
-import { Routes, Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 
 // ================= PUBLIC =================
+import Galeri from "./pages/Galeri/Galeri";
 import Home from "./pages/Home/Home";
 import Kontak from "./pages/Kontak/kontak";
-import Profile from "./pages/Profil/Profil";
-import Galeri from "./pages/Galeri/Galeri";
 import Layanan from "./pages/Layanan/Layanan";
+import LayananForm from "./pages/Layanan/LayananForm";
+import StatusDokumen from "./pages/Layanan/StatusDokumen";
+import SuratIzinKeramaian from "./pages/Layanan/SuratIzinKeramaian";
+import Profile from "./pages/Profil/Profil";
 
 // ================= ADMIN =================
-import AdminLogin from "./pages/Admin/Login";
-import AdminLayout from "./pages/Admin/Layouts/AdminLayouts";
-import AdminDashboard from "./pages/Admin/Dashboard";
-import AdminArtikel from "./pages/Admin/Artikel";
-import AdminLayanan from "./pages/Admin/Layanan";
 import Akun from "./pages/Admin/Akun";
+import AdminArtikel from "./pages/Admin/Artikel";
+import AdminDashboard from "./pages/Admin/Dashboard";
+import AdminLayanan from "./pages/Admin/Layanan";
+import AdminLayout from "./pages/Admin/Layouts/AdminLayouts";
+import AdminLogin from "./pages/Admin/Login";
 import GaleriSpesial from './pages/Galeri/GaleriSpesial';
 
 function App() {
@@ -27,6 +30,9 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/galeri" element={<Galeri />} />
         <Route path="/layanan" element={<Layanan />} />
+        <Route path="/layanan/form" element={<LayananForm />} />
+        <Route path="/layanan/surat-izin-keramaian" element={<SuratIzinKeramaian />} />
+        <Route path="/layanan/status-dokumen" element={<StatusDokumen />} />
         <Route path="/galeri-spesial" element={<GaleriSpesial />} />
       </Route>
 

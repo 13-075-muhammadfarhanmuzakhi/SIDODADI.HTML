@@ -40,4 +40,9 @@ class LayananMasyarakat extends Model
         return $this->hasOne(DokumenAkte::class, 'id_layanan');
     }
 
+    public function dokumenKeramaian()
+    {
+        return $this->hasOne(DokumenKeramaian::class, 'id_layanan');
+    }
 }
+
