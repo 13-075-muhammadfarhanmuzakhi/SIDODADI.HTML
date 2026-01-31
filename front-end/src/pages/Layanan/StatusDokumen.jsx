@@ -54,9 +54,27 @@ const StatusDokumen = () => {
 
   const formatPhone = (phone) => {
     if (!phone) return "-";
-    const n = String(phone).replace(/\D/g, "");
-    if (n.length >= 10) return "+62 " + n.replace(/(\d{3})(\d{3,4})(\d{4})/, "$1 $2 $3");
-    return phone;
+    let n = String(phone).replace(/\D/g, "");
+    
+    // Remove leading 62 if exists (country code)
+    if (n.startsWith("62")) {
+      n = n.substring(2);
+    }
+    // Remove leading 0 if exists
+    if (n.startsWith("0")) {
+      n = n.substring(1);
+    }
+    
+    // Need at least 6 digits (3 first + 3 last)
+    if (n.length < 6) return "+62 " + n;
+    
+    // Get first 3 and last 3 digits
+    const first3 = n.substring(0, 3);
+    const last3 = n.substring(n.length - 3);
+    const middleLength = n.length - 6;
+    const masked = "*".repeat(middleLength);
+    
+    return `+62 ${first3} ${masked} ${last3}`;
   };
 
   const formatDate = (d) => {

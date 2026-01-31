@@ -75,7 +75,7 @@ const Layanan = () => {
       no: 1,
       nama: "Surat Izin Keramaian",
       deskripsi: "Surat izin untuk acara keramaian atau hajatan",
-      path: "/layanan/surat-izin-keramaian",
+      path: "/layanan/form",
       id_dokumen: null,
     },
     {

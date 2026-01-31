@@ -8,7 +8,6 @@ import Kontak from "./pages/Kontak/kontak";
 import Layanan from "./pages/Layanan/Layanan";
 import LayananForm from "./pages/Layanan/LayananForm";
 import StatusDokumen from "./pages/Layanan/StatusDokumen";
-import SuratIzinKeramaian from "./pages/Layanan/SuratIzinKeramaian";
 import Profile from "./pages/Profil/Profil";
 
 // ================= ADMIN =================
@@ -31,7 +30,6 @@ function App() {
         <Route path="/galeri" element={<Galeri />} />
         <Route path="/layanan" element={<Layanan />} />
         <Route path="/layanan/form" element={<LayananForm />} />
-        <Route path="/layanan/surat-izin-keramaian" element={<SuratIzinKeramaian />} />
         <Route path="/layanan/status-dokumen" element={<StatusDokumen />} />
         <Route path="/galeri-spesial" element={<GaleriSpesial />} />
       </Route>
