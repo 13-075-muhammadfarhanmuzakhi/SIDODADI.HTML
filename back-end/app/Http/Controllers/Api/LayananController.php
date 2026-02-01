@@ -15,6 +15,7 @@ use App\Models\DokumenSKU;
 use App\Models\DokumenKematian;
 use App\Models\DokumenAhliWaris;
 use App\Models\DokumenNikah;
+use App\Models\DokumenPenghasilan;
 use App\Models\Dokumen;
 
 class LayananController extends Controller
@@ -346,6 +347,37 @@ class LayananController extends Controller
                 ]);
             }
 
+            // ===== SURAT KETERANGAN PENGHASILAN =====
+            if (str_contains($namaDokumen, 'PENGHASILAN')) {
+                $request->validate([
+                    'nama_lengkap_wali' => 'required|string',
+                    'nik_wali' => 'required|string',
+                    'nama_lengkap_anak' => 'required|string',
+                    'nik_anak' => 'required|string',
+                    'keperluan' => 'required|string',
+                    'penghasilan_per_bulan' => 'required|string',
+                ]);
+
+                DokumenPenghasilan::create([
+                    'id_layanan' => $layanan->id_layanan,
+                    'nama_lengkap_wali' => $request->nama_lengkap_wali,
+                    'nik_wali' => $request->nik_wali,
+                    'tempat_tanggal_lahir_wali' => $request->tempat_tanggal_lahir_wali,
+                    'jenis_kelamin_wali' => $request->jenis_kelamin_wali,
+                    'agama_wali' => $request->agama_wali,
+                    'pekerjaan_wali' => $request->pekerjaan_wali,
+                    'nama_lengkap_anak' => $request->nama_lengkap_anak,
+                    'nik_anak' => $request->nik_anak,
+                    'tempat_tanggal_lahir_anak' => $request->tempat_tanggal_lahir_anak,
+                    'jenis_kelamin_anak' => $request->jenis_kelamin_anak,
+                    'agama_anak' => $request->agama_anak,
+                    'pekerjaan_anak' => $request->pekerjaan_anak,
+                    'keperluan' => $request->keperluan,
+                    'penghasilan_per_bulan' => $request->penghasilan_per_bulan,
+                    'jurusan_prodi' => $request->jurusan_prodi,
+                ]);
+            }
+
             return response()->json([
                 'message' => 'Pengajuan berhasil',
                 'id_layanan' => $layanan->id_layanan
@@ -561,7 +593,8 @@ class LayananController extends Controller
             'dokumenSKU',
             'dokumenKematian',
             'dokumenAhliWaris',
-            'dokumenNikah'
+            'dokumenNikah',
+            'dokumenPenghasilan'
         ])
         ->orderBy('tgl_pengajuan', 'desc')
         ->get();
@@ -591,7 +624,8 @@ class LayananController extends Controller
             'dokumenSKU',
             'dokumenKematian',
             'dokumenAhliWaris',
-            'dokumenNikah'
+            'dokumenNikah',
+            'dokumenPenghasilan'
         ])->orderBy('tgl_pengajuan', 'desc');
 
         $query->whereHas('masyarakat', function ($q) use ($nama, $noTelepon, $hasNama, $hasTelp) {
@@ -624,7 +658,8 @@ class LayananController extends Controller
             'dokumenSKU',
             'dokumenKematian',
             'dokumenAhliWaris',
-            'dokumenNikah'
+            'dokumenNikah',
+            'dokumenPenghasilan'
         ])->findOrFail($id);
     }
 

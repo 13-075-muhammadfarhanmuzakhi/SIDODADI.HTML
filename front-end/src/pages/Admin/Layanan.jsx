@@ -209,6 +209,60 @@ const LayananAdmin = () => {
                 );
               })()}
 
+              {detail.dokumen?.nama_dokumen?.toLowerCase().includes("penghasilan") && (
+                <section>
+                  {(detail.dokumen_penghasilan || detail.dokumenPenghasilan) ? (() => {
+                    const p = detail.dokumen_penghasilan || detail.dokumenPenghasilan;
+                    return (
+                      <div className="space-y-4">
+                        <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Detail Surat Keterangan Penghasilan</h3>
+                        
+                        <div>
+                          <h4 className="font-medium text-gray-700 mb-2">Data Wali</h4>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1 text-sm">
+                            <p>Nama Lengkap : {p.nama_lengkap_wali || "-"}</p>
+                            <p>NIK : {p.nik_wali || "-"}</p>
+                            <p>Tempat, Tanggal Lahir : {p.tempat_tanggal_lahir_wali || "-"}</p>
+                            <p>Jenis Kelamin : {p.jenis_kelamin_wali || "-"}</p>
+                            <p>Agama : {p.agama_wali || "-"}</p>
+                            <p>Pekerjaan : {p.pekerjaan_wali || "-"}</p>
+                          </div>
+                        </div>
+
+                        <div>
+                          <h4 className="font-medium text-gray-700 mb-2">Data Anak</h4>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1 text-sm">
+                            <p>Nama Lengkap : {p.nama_lengkap_anak || "-"}</p>
+                            <p>NIK : {p.nik_anak || "-"}</p>
+                            <p>Tempat, Tanggal Lahir : {p.tempat_tanggal_lahir_anak || "-"}</p>
+                            <p>Jenis Kelamin : {p.jenis_kelamin_anak || "-"}</p>
+                            <p>Agama : {p.agama_anak || "-"}</p>
+                            <p>Pekerjaan : {p.pekerjaan_anak || "-"}</p>
+                          </div>
+                        </div>
+
+                        <div>
+                          <h4 className="font-medium text-gray-700 mb-2">Informasi Penghasilan</h4>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1 text-sm">
+                            <p className="sm:col-span-2">Keperluan : {p.keperluan || "-"}</p>
+                            <p>Penghasilan per Bulan : {p.penghasilan_per_bulan || "-"}</p>
+                            <p>Jurusan/Prodi : {p.jurusan_prodi || "-"}</p>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })() : (
+                    <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                      <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">Detail Surat Keterangan Penghasilan</h3>
+                      <p className="text-sm text-yellow-700">
+                        ⚠️ Data detail tidak tersedia. Pengajuan ini dibuat sebelum sistem detail penghasilan diaktifkan. 
+                        Silakan minta pemohon untuk mengirim ulang pengajuan jika detail diperlukan.
+                      </p>
+                    </div>
+                  )}
+                </section>
+              )}
+
               {detail.dokumen?.nama_dokumen?.toLowerCase().includes("nikah") && (
                 <section>
                   {(detail.dokumen_nikah || detail.dokumenNikah) ? (() => {

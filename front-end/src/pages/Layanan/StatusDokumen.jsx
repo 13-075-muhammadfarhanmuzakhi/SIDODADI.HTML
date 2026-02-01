@@ -26,6 +26,8 @@ const StatusDokumen = () => {
     setLoading(true);
     try {
       const trimmed = query && query.trim();
+      // Selalu gunakan API_LIST untuk menampilkan semua data
+      // Jika ada query, gunakan API_CEK_STATUS untuk filter
       const url = trimmed
         ? API_CEK_STATUS + "?q=" + encodeURIComponent(trimmed)
         : API_LIST;
@@ -42,7 +44,7 @@ const StatusDokumen = () => {
   };
 
   useEffect(() => {
-    setSearched(true);
+    // Load semua data saat pertama kali
     fetchStatus("");
   }, []);
 
