@@ -23,8 +23,10 @@ Route::delete('/admin/{id}', [AdminController::class, 'destroy']);
 
 // ================= LAYANAN =================
 Route::post('/layanan', [LayananController::class, 'store']);
+Route::post('/layanan/keramaian', [LayananController::class, 'storeKeramaianPublic']);
+Route::post('/layanan/pengantar-kk', [LayananController::class, 'storePengantarKK']);
+Route::get('/layanan/cek-status', [LayananController::class, 'cekStatus']);
 Route::get('/layanan', [LayananController::class, 'index']);
 Route::get('/layanan/{id}', [LayananController::class, 'show']);
 Route::put('/layanan/{id}', [LayananController::class, 'update']);
-Route::put('/layanan/{id}', [LayananController::class, 'updateStatus']);
 Route::delete('/layanan/{id}', [LayananController::class, 'destroy']);

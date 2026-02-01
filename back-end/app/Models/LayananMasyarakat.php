@@ -40,4 +40,39 @@ class LayananMasyarakat extends Model
         return $this->hasOne(DokumenAkte::class, 'id_layanan');
     }
 
+    public function dokumenKeramaian()
+    {
+        return $this->hasOne(DokumenKeramaian::class, 'id_layanan');
+    }
+
+    public function dokumenPengantarKK()
+    {
+        return $this->hasOne(DokumenPengantarKK::class, 'id_layanan');
+    }
+
+    public function dokumenPindah()
+    {
+        return $this->hasOne(DokumenPindah::class, 'id_layanan');
+    }
+
+    public function dokumenSKU()
+    {
+        return $this->hasOne(DokumenSKU::class, 'id_layanan');
+    }
+
+    public function dokumenKematian()
+    {
+        return $this->hasOne(DokumenKematian::class, 'id_layanan');
+    }
+
+    public function dokumenAhliWaris()
+    {
+        return $this->hasOne(DokumenAhliWaris::class, 'id_layanan');
+    }
+
+    public function dokumenNikah()
+    {
+        return $this->hasOne(DokumenNikah::class, 'id_layanan');
+    }
 }
+

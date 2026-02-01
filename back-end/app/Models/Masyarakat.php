@@ -25,6 +25,7 @@ class Masyarakat extends Model
         'pekerjaan',
         'alamat_ktp',
         'alamat_domisili',
+        'no_telepon',
     ];
 
     public function layanan()
