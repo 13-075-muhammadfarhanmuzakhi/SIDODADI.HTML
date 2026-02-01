@@ -10,7 +10,8 @@ use App\Http\Controllers\Api\LayananController;
 Route::post('/login', [AdminAuthController::class, 'login']);
 
 // ================= ARTIKEL =================
-Route::get('/artikel', [ArticleController::class, 'index']);
+Route::get('/artikel/{id}', [ArtikelController::class, 'show']);
+Route::get('/artikel', [ArtikelController::class, 'index']);
 Route::post('/artikel', [ArticleController::class, 'store']);
 Route::put('/artikel/{id}', [ArticleController::class, 'update']);
 Route::delete('/artikel/{id}', [ArticleController::class, 'destroy']);
