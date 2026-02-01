@@ -15,7 +15,9 @@ class DatabaseSeeder extends Seeder
             DokumenSeeder::class,
             MasyarakatSeeder::class,
             LayananMasyarakatSeeder::class,
-            DokumenSktmSeeder::class, // optional
+            DokumenSktmSeeder::class,
+            PengumumanSeeder::class,
+            
         ]);
     }
 }

@@ -666,16 +666,26 @@ class LayananController extends Controller
     // ================= ADMIN: UPDATE STATUS =================
     public function update(Request $request, $id)
     {
+        $layanan = LayananMasyarakat::findOrFail($id);
+
         $request->validate([
-            'status' => 'required|in:Diproses,Ditolak,Disetujui',
+            'status' => 'nullable|in:Diproses,Ditolak,Disetujui',
             'keterangan' => 'nullable|string',
         ]);
 
-        $layanan = LayananMasyarakat::findOrFail($id);
-        $layanan->update($request->only('status', 'keterangan'));
+        // Update hanya field yang dikirim
+        if ($request->has('status')) {
+            $layanan->status = $request->status;
+        }
+
+        if ($request->has('keterangan')) {
+            $layanan->keterangan = $request->keterangan;
+        }
+
+        $layanan->save();
 
         return response()->json([
-            'message' => 'Status layanan berhasil diperbarui'
+            'message' => 'Layanan berhasil diperbarui'
         ]);
     }
 

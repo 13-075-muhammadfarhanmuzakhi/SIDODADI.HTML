@@ -5,8 +5,10 @@ const Warna = { primary: "#2F4156", card: "bg-white", border: "border-gray-200" 
 
 const LayananAdmin = () => {
   const [data, setData] = useState([]);
+  const [catatan, setCatatan] = useState("");
   const [loading, setLoading] = useState(true);
   const [showDetail, setShowDetail] = useState(false);
+  const [showCatatan, setShowCatatan] = useState(false);
   const [detail, setDetail] = useState(null);
   const [updatingId, setUpdatingId] = useState(null);
 
@@ -27,6 +29,38 @@ const LayananAdmin = () => {
     fetchData();
   }, []);
 
+  const updateKeterangan = async (id, keterangan) => {
+    setUpdatingId(id);
+    try {
+      const res = await fetch(`${API}/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({ keterangan }),
+      });
+  
+      const json = await res.json();
+  
+      if (!res.ok) {
+        alert(json?.message || "Gagal menyimpan catatan");
+        return;
+      }
+  
+      if (detail?.id_layanan === id) {
+        setDetail((d) => ({ ...d, keterangan }));
+      }
+  
+      fetchData();
+    } catch {
+      alert("Server error saat menyimpan catatan");
+    } finally {
+      setUpdatingId(null);
+    }
+  };
+  
+  
   const updateStatus = async (id, status) => {
     setUpdatingId(id);
     try {
@@ -73,6 +107,7 @@ const LayananAdmin = () => {
                   <th className="px-4 py-3 font-semibold">Dokumen</th>
                   <th className="px-4 py-3 font-semibold w-28">Tanggal</th>
                   <th className="px-4 py-3 font-semibold w-36">Status</th>
+                  <th className="px-4 py-3 font-semibold w-36">Keterangan</th>
                   <th className="px-4 py-3 font-semibold w-32">Aksi</th>
                 </tr>
               </thead>
@@ -95,6 +130,19 @@ const LayananAdmin = () => {
                           <option key={s} value={s}>{s}</option>
                         ))}
                       </select>
+                    </td>
+                    <td className="px-4 py-4 text-gray-700">
+                      <button
+                        onClick={() => {
+                          setDetail(l);
+                          setCatatan(l.keterangan || "");
+                          setShowCatatan(true);
+                        }}
+                        className="text-white text-sm font-medium px-3 py-1.5 rounded-lg hover:opacity-90"
+                        style={{ backgroundColor: Warna.primary }}
+                      >
+                        Catatan
+                      </button>
                     </td>
                     <td className="px-4 py-3">
                       <button
@@ -158,6 +206,7 @@ const LayananAdmin = () => {
                         <option key={s} value={s}>{s}</option>
                       ))}
                     </select>
+                    <p><span className="text-gray-500">Keterangan</span> : {detail.keterangan}</p>
                   </div>
                 </div>
               </section>
@@ -623,6 +672,58 @@ const LayananAdmin = () => {
           </div>
         </div>
       )}
+      {showCatatan && detail && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className={`${Warna.card} w-full max-w-xl rounded-xl shadow-xl border ${Warna.border}`}>
+            
+            {/* HEADER */}
+            <div className="px-6 py-4 border-b flex justify-between items-center">
+              <h2 className="text-lg font-semibold text-gray-800">
+                Catatan Pengajuan
+              </h2>
+              <button onClick={() => setShowCatatan(false)}>✕</button>
+            </div>
+
+            {/* BODY */}
+            <div className="p-6 space-y-4">
+              <p className="text-sm text-gray-600">
+                Berikan catatan jika data pemohon kurang lengkap atau perlu diperbaiki.
+              </p>
+
+              <textarea
+                rows={5}
+                value={catatan}
+                onChange={(e) => setCatatan(e.target.value)}
+                className="w-full border rounded-lg p-3 text-sm focus:ring-2 focus:ring-[#2F4156]"
+                placeholder="Contoh: Fotokopi KK belum jelas, mohon upload ulang..."
+              />
+            </div>
+
+            {/* FOOTER */}
+            <div className="px-6 py-4 border-t flex justify-end gap-3">
+              <button
+                onClick={() => setShowCatatan(false)}
+                className="px-4 py-2 border rounded-lg text-sm"
+              >
+                Batal
+              </button>
+
+              <button
+                onClick={() => {
+                  updateKeterangan(detail.id_layanan, catatan);
+                  setShowCatatan(false);
+                }}
+                disabled={updatingId === detail.id_layanan}
+                className="px-5 py-2 rounded-lg text-white text-sm font-medium hover:opacity-90"
+                style={{ backgroundColor: Warna.primary }}
+              >
+                Simpan Catatan
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };
