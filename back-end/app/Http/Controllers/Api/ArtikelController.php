@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Article;
 use Illuminate\Support\Facades\File;
 
-class ArticleController extends Controller
+class ArtikelController extends Controller
 {
     /* ================= LIST ================= */
     public function index()

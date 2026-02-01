@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AdminAuthController;
-use App\Http\Controllers\Api\ArticleController;
+use App\Http\Controllers\Api\ArtikelController;
 use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\LayananController;
 use App\Http\Controllers\Api\PengumumanController;
@@ -11,8 +11,8 @@ use App\Http\Controllers\Api\PengumumanController;
 Route::post('/login', [AdminAuthController::class, 'login']);
 
 // ================= ARTIKEL =================
-Route::get('/artikel/{id}', [ArtikelController::class, 'show']);
 Route::get('/artikel', [ArtikelController::class, 'index']);
+Route::get('/artikel/{id}', [ArtikelController::class, 'show']);
 Route::post('/artikel', [ArticleController::class, 'store']);
 Route::put('/artikel/{id}', [ArticleController::class, 'update']);
 Route::delete('/artikel/{id}', [ArticleController::class, 'destroy']);

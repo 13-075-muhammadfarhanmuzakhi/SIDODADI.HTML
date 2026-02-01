@@ -192,6 +192,7 @@ const Home = () => {
                 </div>
               </div>
             </div>
+          </div>
           </motion.div>
         ))}
     </AnimatePresence>
