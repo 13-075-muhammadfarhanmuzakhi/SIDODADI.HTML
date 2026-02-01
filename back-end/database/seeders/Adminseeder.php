@@ -10,14 +10,16 @@ class AdminSeeder extends Seeder
 {
     public function run(): void
     {
-        Admin::create([
-            'nama' => 'Admin Utama',
-            'nik' => '1234567890123456',
-            'username' => 'admin',
-            'password' => Hash::make('admin123'),
-            'no_telp' => '081234567890',
-            'foto' => null,
-            'level' => 'Admin',
-        ]);
+        Admin::updateOrCreate(
+            ['username' => 'admin'],
+            [
+                'nama' => 'Admin Utama',
+                'nik' => '1234567890123456',
+                'password' => Hash::make('admin123'),
+                'no_telp' => '081234567890',
+                'foto' => 'Admin.jpg',
+                'level' => 'Admin',
+            ]
+        );
     }
 }

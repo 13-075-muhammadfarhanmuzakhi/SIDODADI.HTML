@@ -11,10 +11,17 @@ class ArtikelSeeder extends Seeder
     public function run(): void
     {
         Article::create([
-            'judul_artikel' => 'Gotong Royong Desa',
-            'deskripsi' => 'Warga Desa Sidodadi Asri melaksanakan gotong royong rutin.',
+            'judul_artikel' => 'Sosialisasi Pondok',
+            'deskripsi' => 'Mahasiswa KKN Itera dan Unila melakukan sosialisasi ke Pondok membawa materi bullying dan PHBS.',
             'tgl_post' => Carbon::now(),
-            'img' => 'contoh.jpg',
+            'img' => 'sosialisasi.jpg',
+        ]);
+
+        Article::create([
+            'judul_artikel' => 'Wawancara dengan Warga Lokal',
+            'deskripsi' => 'Mahasiswa KKN Itera dan Unila melakukan Wawancara ke Warga Lokal.',
+            'tgl_post' => Carbon::now(),
+            'img' => 'wawancara.jpg',
         ]);
     }
 }
