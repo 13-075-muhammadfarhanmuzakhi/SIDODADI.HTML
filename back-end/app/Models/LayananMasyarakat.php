@@ -74,5 +74,10 @@ class LayananMasyarakat extends Model
     {
         return $this->hasOne(DokumenNikah::class, 'id_layanan');
     }
+
+    public function dokumenPenghasilan()
+    {
+        return $this->hasOne(DokumenPenghasilan::class, 'id_layanan');
+    }
 }
 

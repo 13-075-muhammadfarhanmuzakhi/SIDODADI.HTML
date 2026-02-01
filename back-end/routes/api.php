@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\AdminAuthController;
 use App\Http\Controllers\Api\ArticleController;
 use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\LayananController;
+use App\Http\Controllers\Api\PengumumanController;
 
 // ================= AUTH =================
 Route::post('/login', [AdminAuthController::class, 'login']);
@@ -31,3 +32,15 @@ Route::get('/layanan', [LayananController::class, 'index']);
 Route::get('/layanan/{id}', [LayananController::class, 'show']);
 Route::put('/layanan/{id}', [LayananController::class, 'update']);
 Route::delete('/layanan/{id}', [LayananController::class, 'destroy']);
+
+// PUBLIK
+Route::get('/pengumuman', [PengumumanController::class, 'index']);
+Route::get('/pengumuman/{id}', [PengumumanController::class, 'show']);
+
+// ADMIN
+Route::get('/pengumuman-home', [PengumumanController::class, 'home']);
+Route::get('/admin/pengumuman', [PengumumanController::class, 'adminIndex']);
+Route::post('/pengumuman', [PengumumanController::class, 'store']);
+Route::put('/pengumuman/{id}', [PengumumanController::class, 'update']);
+Route::delete('/pengumuman/{id}', [PengumumanController::class, 'destroy']);
+

@@ -10,15 +10,16 @@ import LayananForm from "./pages/Layanan/LayananForm";
 import StatusDokumen from "./pages/Layanan/StatusDokumen";
 import Profile from "./pages/Profil/Profil";
 import LamanArtikelDesa from './pages/Galeri/LamanArtikelDesa';
+import GaleriSpesial from './pages/Galeri/GaleriSpesial';
 
 // ================= ADMIN =================
 import Akun from "./pages/Admin/Akun";
+import AdminPengumuman from "./pages/Admin/Pengumuman";
 import AdminArtikel from "./pages/Admin/Artikel";
 import AdminDashboard from "./pages/Admin/Dashboard";
 import AdminLayanan from "./pages/Admin/Layanan";
 import AdminLayout from "./pages/Admin/Layouts/AdminLayouts";
 import AdminLogin from "./pages/Admin/Login";
-import GaleriSpesial from './pages/Galeri/GaleriSpesial';
 import StrukturOrganisasi from './pages/Profil/StrukturOrganisasi';
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
         <Route path="dashboard" element={<AdminDashboard />} />
         <Route path="layanan" element={<AdminLayanan />} />
         <Route path="artikel" element={<AdminArtikel />} />
+        <Route path="pengumuman" element={<AdminPengumuman />} />
         <Route path="akun" element={<Akun />} />
       </Route>
     </Routes>

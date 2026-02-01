@@ -211,6 +211,25 @@ const LayananForm = () => {
     ortu_calon_ibu_alamat: "",
   });
 
+  // Form Surat Keterangan Penghasilan
+  const [formPenghasilan, setFormPenghasilan] = useState({
+    nama_lengkap_wali: "",
+    nik_wali: "",
+    tempat_tanggal_lahir_wali: "",
+    jenis_kelamin_wali: "",
+    agama_wali: "",
+    pekerjaan_wali: "",
+    nama_lengkap_anak: "",
+    nik_anak: "",
+    tempat_tanggal_lahir_anak: "",
+    jenis_kelamin_anak: "",
+    agama_anak: "",
+    pekerjaan_anak: "",
+    keperluan: "",
+    penghasilan_per_bulan: "",
+    jurusan_prodi: "",
+  });
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -305,6 +324,10 @@ const LayananForm = () => {
 
   const handleNikahChange = (e) => {
     setFormNikah({ ...formNikah, [e.target.name]: e.target.value });
+  };
+
+  const handlePenghasilanChange = (e) => {
+    setFormPenghasilan({ ...formPenghasilan, [e.target.name]: e.target.value });
   };
 
   const resetAllForms = () => {
@@ -507,6 +530,7 @@ const LayananForm = () => {
       "kematian": "12",
       "ahli-waris": "13",
       "nikah": "14",
+      "penghasilan": "15",
     };
     
     // Fungsi untuk parse tanggal Indonesia ke format YYYY-MM-DD
@@ -627,6 +651,10 @@ const LayananForm = () => {
       });
     } else if (jenisLayanan === "nikah") {
       Object.entries(formNikah).forEach(([key, value]) => {
+        fd.append(key, value);
+      });
+    } else if (jenisLayanan === "penghasilan") {
+      Object.entries(formPenghasilan).forEach(([key, value]) => {
         fd.append(key, value);
       });
     }
@@ -838,6 +866,7 @@ const LayananForm = () => {
                 <option value="kematian">Surat Kematian</option>
                 <option value="ahli-waris">Surat Keterangan Ahli Waris</option>
                 <option value="nikah">Surat Nikah</option>
+                <option value="penghasilan">Surat Keterangan Penghasilan</option>
               </select>
             </div>
           </div>
@@ -1909,6 +1938,97 @@ const LayananForm = () => {
                       <li>Pasfoto 2×3 cm = 5 Lembar berlatar belakang biru</li>
                       <li>Pasfoto 4×6 cm = 1 Lembar berlatar belakang biru</li>
                     </ol>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Form Surat Keterangan Penghasilan */}
+          {jenisLayanan === "penghasilan" && (
+            <div className="bg-white rounded-xl shadow-lg p-8 space-y-8">
+              <h2 className="text-lg font-bold text-teal-700">Surat Keterangan Penghasilan</h2>
+              <p className="text-sm text-gray-600">Kolom bertanda (Jika ada) boleh dikosongkan.</p>
+              
+              {/* Data Wali */}
+              <div>
+                <h3 className="text-md font-semibold text-gray-800 mb-4">Data Wali</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className={labelClass}>Nama lengkap wali</label>
+                    <input name="nama_lengkap_wali" placeholder="Masukkan nama lengkap wali" value={formPenghasilan.nama_lengkap_wali} onChange={handlePenghasilanChange} className={inputClass} required />
+                  </div>
+                  <div>
+                    <label className={labelClass}>NIK wali</label>
+                    <input name="nik_wali" placeholder="Masukkan NIK wali" value={formPenghasilan.nik_wali} onChange={handlePenghasilanChange} className={inputClass} required />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Tempat, tanggal lahir wali (Jika ada)</label>
+                    <input name="tempat_tanggal_lahir_wali" placeholder="Contoh: Jakarta, 15 Agustus 1975" value={formPenghasilan.tempat_tanggal_lahir_wali} onChange={handlePenghasilanChange} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Jenis kelamin wali (Jika ada)</label>
+                    <input name="jenis_kelamin_wali" placeholder="Laki-laki / Perempuan" value={formPenghasilan.jenis_kelamin_wali} onChange={handlePenghasilanChange} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Agama wali (Jika ada)</label>
+                    <input name="agama_wali" placeholder="Masukkan agama wali" value={formPenghasilan.agama_wali} onChange={handlePenghasilanChange} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Pekerjaan wali (Jika ada)</label>
+                    <input name="pekerjaan_wali" placeholder="Masukkan pekerjaan wali" value={formPenghasilan.pekerjaan_wali} onChange={handlePenghasilanChange} className={inputClass} />
+                  </div>
+                </div>
+              </div>
+
+              {/* Data Anak */}
+              <div>
+                <h3 className="text-md font-semibold text-gray-800 mb-4">Data Anak</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className={labelClass}>Nama lengkap anak</label>
+                    <input name="nama_lengkap_anak" placeholder="Masukkan nama lengkap anak" value={formPenghasilan.nama_lengkap_anak} onChange={handlePenghasilanChange} className={inputClass} required />
+                  </div>
+                  <div>
+                    <label className={labelClass}>NIK anak</label>
+                    <input name="nik_anak" placeholder="Masukkan NIK anak" value={formPenghasilan.nik_anak} onChange={handlePenghasilanChange} className={inputClass} required />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Tempat, tanggal lahir anak (Jika ada)</label>
+                    <input name="tempat_tanggal_lahir_anak" placeholder="Contoh: Jakarta, 15 Agustus 2000" value={formPenghasilan.tempat_tanggal_lahir_anak} onChange={handlePenghasilanChange} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Jenis kelamin anak (Jika ada)</label>
+                    <input name="jenis_kelamin_anak" placeholder="Laki-laki / Perempuan" value={formPenghasilan.jenis_kelamin_anak} onChange={handlePenghasilanChange} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Agama anak (Jika ada)</label>
+                    <input name="agama_anak" placeholder="Masukkan agama anak" value={formPenghasilan.agama_anak} onChange={handlePenghasilanChange} className={inputClass} />
+                  </div>
+                  <div>
+                    <label className={labelClass}>Pekerjaan anak (Jika ada)</label>
+                    <input name="pekerjaan_anak" placeholder="Masukkan pekerjaan anak" value={formPenghasilan.pekerjaan_anak} onChange={handlePenghasilanChange} className={inputClass} />
+                  </div>
+                </div>
+              </div>
+
+              {/* Keperluan & Penghasilan */}
+              <div>
+                <h3 className="text-md font-semibold text-gray-800 mb-4">Keperluan</h3>
+                <div className="grid grid-cols-1 gap-4">
+                  <div>
+                    <label className={labelClass}>Keperluan</label>
+                    <textarea name="keperluan" placeholder="Masukkan keperluan surat penghasilan" value={formPenghasilan.keperluan} onChange={handlePenghasilanChange} className={inputClass + " min-h-[80px]"} required />
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className={labelClass}>Penghasilan per bulan</label>
+                      <input name="penghasilan_per_bulan" placeholder="Contoh: Rp 3.000.000" value={formPenghasilan.penghasilan_per_bulan} onChange={handlePenghasilanChange} className={inputClass} required />
+                    </div>
+                    <div>
+                      <label className={labelClass}>Jurusan/Prodi (Jika ada)</label>
+                      <input name="jurusan_prodi" placeholder="Masukkan jurusan/program studi" value={formPenghasilan.jurusan_prodi} onChange={handlePenghasilanChange} className={inputClass} />
+                    </div>
                   </div>
                 </div>
               </div>

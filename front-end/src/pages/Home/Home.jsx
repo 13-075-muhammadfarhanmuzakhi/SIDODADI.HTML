@@ -27,9 +27,12 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [current, setCurrent] = useState(0);
 
-  // STATE UNTUK NOTIFIKASI
+  // STATE PENGUMUMAN DARI API
+  // STATE PENGUMUMAN
   const [showNotif, setShowNotif] = useState(false);
+  const [pengumuman, setPengumuman] = useState([]);
   const [notifMessage, setNotifMessage] = useState("");
+
 
   /**
    * DATA TESTIMONIAL LENGKAP
@@ -95,18 +98,25 @@ const Home = () => {
         setLoading(false);
       }
     };
+  
+    // ================= PENGUMUMAN HOME =================
+    const fetchPengumuman = async () => {
+      try {
+        const res = await fetch("http://127.0.0.1:8000/api/pengumuman-home");
+        const data = await res.json();
+  
+        if (Array.isArray(data) && data.length > 0) {
+          setPengumuman(data);          // ← ARRAY
+          setTimeout(() => setShowNotif(true), 1500);
+        }
+      } catch (err) {
+        console.error("Gagal mengambil pengumuman:", err);
+      }
+    };
+  
     fetchArticles();
-
-    // Logika Munculkan Notifikasi Otomatis (Muncul setelah 2 detik)
-    const timer = setTimeout(() => {
-      setNotifMessage(
-        "Pengumuman: Pembagian Sembako Desa Sidodadi Asri akan dilaksanakan pada tanggal 5 Februari 2026 di Balai Desa.",
-      );
-      setShowNotif(true);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
+    fetchPengumuman();
+  }, []);  
 
   /**
    * HANDLER NAVIGATION TESTIMONI
@@ -124,19 +134,25 @@ const Home = () => {
       
       {/* 🔔 FITUR NOTIFIKASI PENGUMUMAN */}
       <AnimatePresence>
-        {showNotif && (
+      {showNotif &&
+        pengumuman.map((item, index) => (
           <motion.div
+            key={item.id_pengumuman}
             initial={{ opacity: 0, x: -100 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -100 }}
-            className="fixed top-16 md:top-24 left-4 right-4 md:left-8 md:right-auto z-[999] max-w-full md:max-w-lg"
+            className="fixed left-6 z-[999] max-w-[320px] md:max-w-md"
+            style={{ top: `${80 + index * 190}px` }} // 🔥 STACK
           >
-            <div className="bg-white/80 backdrop-blur-2xl p-6 md:p-8 rounded-[2rem] md:rounded-[3rem] shadow-[0_30px_60px_rgba(0,0,0,0.15)] border border-white/50 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-2.5 h-full bg-emerald-500"></div>
+            <div className="bg-white/80 backdrop-blur-xl p-6 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.2)] border border-white/40 relative overflow-hidden">
               
+              {/* Garis kiri */}
+              <div className="absolute top-0 left-0 w-2 h-full bg-emerald-500"></div>
+
+              {/* Close */}
               <button
                 onClick={() => setShowNotif(false)}
-                className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-500 hover:text-white transition-all duration-300 shadow-sm"
+                className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-500 hover:text-white transition shadow-sm"
               >
                 ✕
               </button>
@@ -151,6 +167,19 @@ const Home = () => {
                     Pengumuman Desa
                   </h4>
                 </div>
+
+                <p className="text-slate-700 text-sm leading-relaxed font-medium">
+                  <strong>{item.judul}</strong>
+                  <br />
+                  {item.isi}
+                </p>
+
+                <div className="mt-2 text-xs text-slate-500 italic">
+                  📅 {new Date(item.tanggal_kegiatan).toLocaleDateString("id-ID")}
+                </div>
+
+                <div className="mt-4 flex items-center gap-2 text-[10px] text-slate-400 font-mono italic">
+                  <span>Sidodadi Asri Info</span>
                 
                 <p className="text-slate-800 text-sm md:text-lg leading-relaxed font-bold">
                   {notifMessage}
@@ -164,8 +193,9 @@ const Home = () => {
               </div>
             </div>
           </motion.div>
-        )}
-      </AnimatePresence>
+        ))}
+    </AnimatePresence>
+
 
       {/* 🎬 SECTION 1: HERO (VIDEO PROFILE) */}
       <section className="relative h-[80vh] md:h-screen w-full overflow-hidden shadow-2xl">

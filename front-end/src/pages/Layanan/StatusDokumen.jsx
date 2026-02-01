@@ -26,6 +26,8 @@ const StatusDokumen = () => {
     setLoading(true);
     try {
       const trimmed = query && query.trim();
+      // Selalu gunakan API_LIST untuk menampilkan semua data
+      // Jika ada query, gunakan API_CEK_STATUS untuk filter
       const url = trimmed
         ? API_CEK_STATUS + "?q=" + encodeURIComponent(trimmed)
         : API_LIST;
@@ -42,7 +44,7 @@ const StatusDokumen = () => {
   };
 
   useEffect(() => {
-    setSearched(true);
+    // Load semua data saat pertama kali
     fetchStatus("");
   }, []);
 
@@ -155,6 +157,7 @@ const StatusDokumen = () => {
                 <th className="px-4 py-3 text-left text-sm font-bold text-gray-900">Nomor Telepon</th>
                 <th className="px-4 py-3 text-left text-sm font-bold text-gray-900">Tanggal Pengajuan</th>
                 <th className="px-4 py-3 text-left text-sm font-bold text-gray-900">Status</th>
+                <th className="px-4 py-3 text-left text-sm font-bold text-gray-900">Keterangan</th>
               </tr>
             </thead>
             <tbody>
@@ -184,6 +187,7 @@ const StatusDokumen = () => {
                           {s.label}
                         </span>
                       </td>
+                      <td className="px-4 py-3 text-sm text-gray-900">{row.keterangan}</td>
                     </tr>
                   );
                 })
