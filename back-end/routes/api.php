@@ -13,9 +13,9 @@ Route::post('/login', [AdminAuthController::class, 'login']);
 // ================= ARTIKEL =================
 Route::get('/artikel', [ArtikelController::class, 'index']);
 Route::get('/artikel/{id}', [ArtikelController::class, 'show']);
-Route::post('/artikel', [ArticleController::class, 'store']);
-Route::put('/artikel/{id}', [ArticleController::class, 'update']);
-Route::delete('/artikel/{id}', [ArticleController::class, 'destroy']);
+Route::post('/artikel', [ArtikelController::class, 'store']);
+Route::put('/artikel/{id}', [ArtikelController::class, 'update']);
+Route::delete('/artikel/{id}', [ArtikelController::class, 'destroy']);
 
 // ================= ADMIN =================
 Route::get('/admin', [AdminController::class, 'index']);

@@ -18,18 +18,20 @@ const LamanArtikelDesa = () => {
         const fetchDetailArtikel = async () => {
             try {
                 const res = await fetch(API_URL);
+                if (!res.ok) throw new Error("Artikel tidak ditemukan");
                 const json = await res.json();
                 setArtikel(json);
             } catch (e) {
                 console.error("Gagal memuat artikel:", e);
+                setArtikel(null);
             } finally {
                 setLoading(false);
             }
         };
-
+    
         fetchDetailArtikel();
-        window.scrollTo(0, 0); // Scroll ke atas otomatis
-    }, [id]);
+        window.scrollTo(0, 0);
+    }, [id]);    
 
     if (loading) return <div className="min-h-screen flex items-center justify-center text-gray-500 font-serif italic">Memuat berita...</div>;
     if (!artikel) return <div className="min-h-screen flex items-center justify-center text-gray-500">Artikel tidak ditemukan.</div>;

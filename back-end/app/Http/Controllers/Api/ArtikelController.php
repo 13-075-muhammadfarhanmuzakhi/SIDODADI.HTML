@@ -16,6 +16,17 @@ class ArtikelController extends Controller
             Article::orderBy('tgl_post', 'desc')->get()
         );
     }
+    public function show($id)
+    {
+        $artikel = Article::find($id);
+
+        if (!$artikel) {
+            return response()->json([
+                'message' => 'Artikel tidak ditemukan'
+            ], 404);
+        }
+        return response()->json($artikel);
+    }
 
     /* ================= CREATE ================= */
     public function store(Request $request)

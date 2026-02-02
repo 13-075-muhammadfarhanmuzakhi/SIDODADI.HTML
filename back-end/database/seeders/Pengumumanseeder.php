@@ -17,13 +17,5 @@ class PengumumanSeeder extends Seeder
             'status' => 'aktif',
             'published_at' => now()
         ]);
-
-        Pengumuman::create([
-            'judul' => 'Posyandu Balita',
-            'isi' => 'Kegiatan posyandu dilaksanakan di balai desa.',
-            'tanggal_kegiatan' => Carbon::now()->addDays(7),
-            'status' => 'aktif',
-            'published_at' => now()
-        ]);
     }
 }

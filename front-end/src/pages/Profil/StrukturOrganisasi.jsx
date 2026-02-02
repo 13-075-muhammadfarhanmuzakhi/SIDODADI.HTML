@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import bgPattern from "../../assets/contacts/bg.png";
 import bgUp from "../../assets/contacts/bg-up.png";
+import Kadus2 from "../../assets/struktur_desa/kadus-2.jpeg";
+import kadus6a from "../../assets/struktur_desa/kadus-6a.jpeg";
+import Kadus5 from "../../assets/struktur_desa/kadus-5.jpeg";
 
 const StrukturOrganisasi = () => {
     const [selectedMember, setSelectedMember] = useState(null);
@@ -21,11 +24,11 @@ const StrukturOrganisasi = () => {
         ],
         kadus: [
             { id: 10, dusun: "Kadus 1", nama: "NAMA KADUS 1", img: bgUp },
-            { id: 11, dusun: "Kadus 2", nama: "NAMA KADUS 2", img: bgUp },
+            { id: 11, dusun: "Kadus 2", nama: "Slamet Bagio ", img: Kadus2 },
             { id: 12, dusun: "Kadus 3", nama: "NAMA KADUS 3", img: bgUp },
             { id: 13, dusun: "Kadus 4", nama: "NAMA KADUS 4", img: bgUp },
-            { id: 14, dusun: "Kadus 5", nama: "NAMA KADUS 5", img: bgUp },
-            { id: 15, dusun: "Kadus 6-A", nama: "NAMA KADUS 6-A", img: bgUp },
+            { id: 14, dusun: "Kadus 5", nama: "Istiyo Paranto", img: Kadus5 },
+            { id: 15, dusun: "Kadus 6-A", nama: "Ponidi ", img: kadus6a },
             { id: 16, dusun: "Kadus 6-B", nama: "NAMA KADUS 6-B", img: bgUp },
             { id: 17, dusun: "Kadus 7", nama: "NAMA KADUS 7", img: bgUp },
         ]

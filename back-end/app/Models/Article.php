@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
+    use HasFactory;
     protected $table = 'artikel';
     protected $primaryKey = 'id_artikel';
     public $timestamps = false;
@@ -16,4 +18,5 @@ class Article extends Model
         'tgl_post',
         'img'
     ];
+
 }

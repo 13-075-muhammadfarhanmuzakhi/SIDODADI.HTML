@@ -107,7 +107,7 @@ const Home = () => {
   
         if (Array.isArray(data) && data.length > 0) {
           setPengumuman(data);          // ← ARRAY
-          setTimeout(() => setShowNotif(true), 1500);
+          setTimeout(() => setShowNotif(true), 1000);
         }
       } catch (err) {
         console.error("Gagal mengambil pengumuman:", err);
@@ -289,7 +289,7 @@ const Home = () => {
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-16 md:mb-24">
             <div className="inline-flex w-16 h-16 bg-white/5 rounded-full items-center justify-center border border-white/10 mb-8 shadow-2xl text-white font-black text-3xl">
-              “
+              ?
             </div>
             <h2 className="text-3xl md:text-6xl font-black text-white tracking-tighter uppercase leading-none">
               Apa Kata Warga Lokal?
