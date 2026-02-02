@@ -1,158 +1,218 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 
+// Import Background
 import bgPattern from "../../assets/contacts/bg.png";
 import bgUp from "../../assets/contacts/bg-up.png";
 
+// Import Foto Anggota
+import fotoFarhan from "../../assets/images/farhan.jpeg";
+import fotoAliya from "../../assets/images/aliya.jpeg";
+import fotoHafsa from "../../assets/images/hafsa.jpeg";
+import fotoZakiGhozy from "../../assets/images/zakighozy.jpeg";
+import fotoZakiKacamata from "../../assets/images/zakikacamata.jpeg";
+import fotoRazka from "../../assets/images/razka.jpeg";
+import fotoFany from "../../assets/images/fany.jpeg";
+import fotoHafiz from "../../assets/images/hafiz.JPG";
+
 const GaleriSpesial = () => {
   const navigate = useNavigate();
-  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const timPengembang = [
+  const teamData = [
     {
-      id: 1,
+      img: fotoFarhan,
       nama: "Muhammad Farhan Muzakhi",
-      peran: "Ketua Kelompok",
-      img: bgUp,
+      jabatan: "Project Manager",
+      color: "#FF5733",
     },
     {
-      id: 2,
+      img: fotoZakiGhozy,
       nama: "Zacky Ghozi Al Miqdad",
-      peran: "Front-end Developer",
-      img: bgUp,
+      jabatan: "Front-end Developer",
+      color: "#33FF57",
     },
-    { id: 3, nama: "Muhammad Dzaky", peran: "UI/UX Designer", img: bgUp },
     {
-      id: 4,
+      img: fotoZakiKacamata,
+      nama: "Muhammad Dzaky",
+      jabatan: "Back-end Developer",
+      color: "#3357FF",
+    },
+    {
+      img: fotoAliya,
       nama: "Aliya Ammara Ananta",
-      peran: "Back-end Developer",
-      img: bgUp,
+      jabatan: "UI/UX",
+      color: "#F033FF",
     },
     {
-      id: 5,
+      img: fotoHafsa,
       nama: "Hafsa Fadzila Arradhi",
-      peran: "Content Writer",
-      img: bgUp,
+      jabatan: "UI/UX",
+      color: "#FF33A1",
     },
     {
-      id: 6,
-      nama: "Gusti Putu Ferazka D ",
-      peran: "Data Researcher",
-      img: bgUp,
+      img: fotoRazka,
+      nama: "Gusti Putu Ferazka D",
+      jabatan: "UI/UX",
+      color: "#33FFF5",
     },
     {
-      id: 7,
-      nama: "Vany salsabila Putri",
-      peran: "Public Relation",
-      img: bgUp,
+      img: fotoFany,
+      nama: "Vany Salsabila Putri",
+      jabatan: "UI/UX",
+      color: "#FFD433",
     },
     {
-      id: 8,
+      img: fotoHafiz,
       nama: "Muhammad Hafiz Assyifa",
-      peran: "Documentation",
-      img: bgUp,
+      jabatan: "Back-end Developer",
+      color: "#93ff8d",
     },
   ];
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) =>
-        prev >= timPengembang.length - 3 ? 0 : prev + 1,
-      );
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [timPengembang.length]);
+    // Diubah menjadi 5000ms (5 detik)
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % teamData.length);
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, [teamData.length]); // Dependency array ditambahkan agar timer konsisten
+
+  const getMember = (offset) => {
+    const index = (currentIndex + offset + teamData.length) % teamData.length;
+    return teamData[index];
+  };
 
   return (
-    /* Padding top yang cukup agar tombol tidak tertutup Navbar fixed */
-    <div className="min-h-screen w-full bg-[#454545] relative overflow-x-hidden pt-32 pb-32 px-6 font-sans text-white">
-      <div className="fixed inset-0 z-0 pointer-events-none opacity-20">
+    <div className="min-h-screen w-full bg-[#1a1a1a] relative overflow-x-hidden pt-20 pb-32 px-6 font-sans text-white">
+      <div className="fixed inset-0 z-0 opacity-40">
         <img src={bgPattern} alt="bg" className="w-full h-full object-cover" />
       </div>
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col">
-        {/* TOMBOL KEMBALI: Tidak Fixed, Tidak Floating (Scrollable) */}
-        <div className="w-full flex justify-start mb-8">
+      <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center">
+        {/* Header */}
+        <div className="w-full mb-10 flex justify-between items-center">
+          <h2 className="text-[10px] tracking-[0.4em] uppercase opacity-60">
+            Galeri Special
+          </h2>
           <button
             onClick={() => navigate(-1)}
-            className="bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full text-[#93ff8d] font-bold text-[10px] uppercase tracking-widest hover:bg-white hover:text-black transition-all border border-white/20 shadow-lg cursor-pointer"
+            className="text-[10px] uppercase tracking-widest hover:text-[#93ff8d] transition-colors"
           >
             ← Kembali
           </button>
         </div>
 
-        <div className="text-center mb-16">
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tighter text-[#93ff8d] lowercase first-letter:uppercase font-serif">
-            Galeri Spesial
-          </h1>
+        {/* Slider Section */}
+        <div className="relative flex flex-col items-center justify-center w-full h-[400px] md:h-[500px] mb-20">
+          <div
+            className="absolute z-0 w-64 h-64 md:w-96 md:h-96 rounded-full blur-[120px] opacity-20 transition-colors duration-1000"
+            style={{ backgroundColor: teamData[currentIndex].color }}
+          />
+
+          <div className="relative w-full flex items-center justify-center">
+            <AnimatePresence mode="popLayout">
+              <motion.div
+                key={currentIndex}
+                initial={{ x: 150, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                exit={{ x: -150, opacity: 0 }}
+                transition={{ duration: 0.8, ease: "easeInOut" }}
+                className="relative flex items-center justify-center w-full"
+              >
+                {/* Gambar Kiri */}
+                <div className="absolute left-[2%] md:left-[10%] z-10 w-32 h-48 md:w-56 md:h-80 rounded-[40px] md:rounded-[60px] overflow-hidden rotate-[-12deg] border-2 border-white/5 opacity-30 blur-[2px]">
+                  <img
+                    src={getMember(-1).img}
+                    className="w-full h-full object-cover grayscale"
+                    alt="prev"
+                  />
+                </div>
+
+                {/* Gambar Tengah */}
+                <div
+                  className="z-30 w-56 h-80 md:w-72 md:h-[400px] rounded-[50px] md:rounded-[80px] overflow-hidden border-4 shadow-[0_20px_60px_rgba(0,0,0,0.8)] transition-colors duration-1000"
+                  style={{ borderColor: `${teamData[currentIndex].color}66` }}
+                >
+                  <img
+                    src={getMember(0).img}
+                    className="w-full h-full object-cover"
+                    alt="active"
+                  />
+                </div>
+
+                {/* Gambar Kanan */}
+                <div className="absolute right-[2%] md:right-[10%] z-10 w-32 h-48 md:w-56 md:h-80 rounded-[40px] md:rounded-[60px] overflow-hidden rotate-[12deg] border-2 border-white/5 opacity-30 blur-[2px]">
+                  <img
+                    src={getMember(1).img}
+                    className="w-full h-full object-cover grayscale"
+                    alt="next"
+                  />
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Nama & Jabatan */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentIndex}
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -10, opacity: 0 }}
+              transition={{ duration: 0.5 }} // Transisi teks lebih cepat agar sinkron
+              className="mt-10 text-center"
+            >
+              <h3
+                className="text-2xl md:text-3xl font-black tracking-tight transition-colors duration-500"
+                style={{ color: teamData[currentIndex].color }}
+              >
+                {teamData[currentIndex].nama}
+              </h3>
+              <p className="text-[10px] md:text-xs uppercase tracking-[0.4em] text-white/50 mt-2 font-medium">
+                {teamData[currentIndex].jabatan}
+              </p>
+            </motion.div>
+          </AnimatePresence>
         </div>
 
-        {/* Section 1: Tim Pengembang Auto-Slider */}
-        <section className="mb-48">
-          <div className="text-center mb-12">
-            <h2 className="text-xl font-bold border-b-2 border-[#93ff8d] pb-2 inline-block uppercase tracking-[5px]">
-              Tim Pengembang
-            </h2>
-          </div>
-          <div className="relative w-full overflow-hidden">
-            <div
-              className="flex transition-transform duration-1000 ease-in-out"
-              style={{ transform: `translateX(-${currentIndex * (100 / 3)}%)` }}
-            >
-              {timPengembang.map((member) => (
-                <div
-                  key={member.id}
-                  className="w-full md:w-1/3 flex-shrink-0 px-4"
-                >
-                  <div className="bg-[#2d2d2d] rounded-[50px] border-4 border-white/5 overflow-hidden flex flex-col h-[460px]">
-                    <div className="w-full h-3/5 overflow-hidden">
-                      <img
-                        src={member.img}
-                        alt={member.nama}
-                        className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                      />
-                    </div>
-                    <div className="p-8 text-center flex-1 flex flex-col justify-center bg-gradient-to-b from-[#2d2d2d] to-black">
-                      <h3 className="text-xl font-bold lowercase first-letter:uppercase tracking-tight text-white mb-1">
-                        {member.nama}
-                      </h3>
-                      <p className="text-[#93ff8d] font-bold text-[10px] uppercase tracking-widest opacity-80">
-                        {member.peran}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Section 2: After Movie */}
-        <section className="max-w-5xl mx-auto">
+        {/* Section Video */}
+        <motion.section
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          className="w-full max-w-4xl mt-20"
+        >
           <div className="text-center mb-10">
-            <h2 className="text-xl font-bold inline-block border-b-2 border-[#93ff8d] pb-2 uppercase tracking-widest">
-              After Movie KKN
+            <h2 className="text-xl font-bold tracking-[8px] uppercase">
+              After Movie
             </h2>
+            <div className="h-1 w-12 bg-[#93ff8d] mx-auto mt-2" />
           </div>
-          <div className="relative rounded-[60px] overflow-hidden border-8 border-white/10 shadow-2xl bg-black aspect-video group cursor-pointer">
+
+          <div className="relative group rounded-[40px] overflow-hidden border border-white/10 aspect-video shadow-2xl">
             <img
               src={bgUp}
-              alt="Video"
-              className="w-full h-full object-cover opacity-40 group-hover:scale-105 transition duration-1000"
+              alt="Thumbnail"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-16 h-16 bg-[#93ff8d] rounded-full flex items-center justify-center shadow-lg">
-                <span className="text-black text-2xl ml-1">▶</span>
-              </div>
+            <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                className="w-16 h-16 bg-[#93ff8d] rounded-full flex items-center justify-center shadow-lg"
+              >
+                <div className="border-y-[10px] border-y-transparent border-l-[16px] border-l-black ml-1" />
+              </motion.button>
             </div>
           </div>
-          <div className="mt-20 text-center px-6">
-            <p className="text-base md:text-lg text-white/70 italic leading-relaxed font-serif max-w-4xl mx-auto px-8 border-x border-[#93ff8d]/20">
-              "Desa ini telah menjadi rumah yang memberikan banyak kenangan bagi
-              kami selama 30 hari pelaksanaan Kuliah Kerja Nyata."
-            </p>
-          </div>
-        </section>
+
+          <p className="mt-10 text-center text-white/70 italic font-serif">
+            "Desa ini telah menjadi rumah yang memberikan banyak kenangan bagi
+            kami selama 30 hari penuh makna."
+          </p>
+        </motion.section>
       </div>
     </div>
   );
