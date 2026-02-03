@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import bgPattern from "../../assets/contacts/bg.png";
 import bgUp from "../../assets/contacts/bg-up.png";
+import Kadus2 from "../../assets/struktur_desa/kadus-2.jpeg";
+import kadus6a from "../../assets/struktur_desa/kadus-6a.jpeg";
+import Kadus5 from "../../assets/struktur_desa/kadus-5.jpeg";
 
 const StrukturOrganisasi = () => {
     const [selectedMember, setSelectedMember] = useState(null);
@@ -21,11 +24,11 @@ const StrukturOrganisasi = () => {
         ],
         kadus: [
             { id: 10, dusun: "Kadus 1", nama: "NAMA KADUS 1", img: bgUp },
-            { id: 11, dusun: "Kadus 2", nama: "NAMA KADUS 2", img: bgUp },
+            { id: 11, dusun: "Kadus 2", nama: "Slamet Bagio ", img: Kadus2 },
             { id: 12, dusun: "Kadus 3", nama: "NAMA KADUS 3", img: bgUp },
             { id: 13, dusun: "Kadus 4", nama: "NAMA KADUS 4", img: bgUp },
-            { id: 14, dusun: "Kadus 5", nama: "NAMA KADUS 5", img: bgUp },
-            { id: 15, dusun: "Kadus 6-A", nama: "NAMA KADUS 6-A", img: bgUp },
+            { id: 14, dusun: "Kadus 5", nama: "Istiyo Paranto", img: Kadus5 },
+            { id: 15, dusun: "Kadus 6-A", nama: "Ponidi ", img: kadus6a },
             { id: 16, dusun: "Kadus 6-B", nama: "NAMA KADUS 6-B", img: bgUp },
             { id: 17, dusun: "Kadus 7", nama: "NAMA KADUS 7", img: bgUp },
         ]
@@ -99,11 +102,47 @@ const StrukturOrganisasi = () => {
                     </div>
                 </div>
             </div>
-            {/* Modal: Pastikan w-[90%] di HP */}
+            {/* Modal Pop-up: Dioptimalkan agar foto tidak terpotong */}
             {selectedMember && (
-                <div className="fixed inset-0 z-[1000] flex items-center justify-center p-4 backdrop-blur-md bg-black/40" onClick={() => setSelectedMember(null)}>
-                    <div className="bg-[#454545] text-white w-full max-w-[320px] md:max-w-sm rounded-[40px] p-6 md:p-8 relative" onClick={e => e.stopPropagation()}>
-                        {/* Isi modal tetap sama */}
+                <div 
+                    className="fixed inset-0 z-[1000] flex items-center justify-center p-4 backdrop-blur-xl bg-black/60" 
+                    onClick={() => setSelectedMember(null)}
+                >
+                    <div 
+                        className="bg-[#333] text-white w-full max-w-[350px] md:max-w-md rounded-[3rem] p-6 md:p-10 relative flex flex-col items-center shadow-2xl border border-white/10" 
+                        onClick={e => e.stopPropagation()}
+                    >
+                        {/* Tombol Close */}
+                        <button 
+                            onClick={() => setSelectedMember(null)}
+                            className="absolute top-6 right-8 text-white/40 hover:text-white text-xl transition-colors"
+                        >
+                            ✕
+                        </button>
+
+                        {/* FOTO: Diubah dari rounded-full menjadi rounded-[2.5rem] (Kotak Tumpul) */}
+                        <div className="w-full aspect-[4/5] md:aspect-square rounded-[2.5rem] overflow-hidden border-4 border-[#93ff8d] shadow-2xl mb-8 bg-slate-800">
+                            <img 
+                                src={selectedMember.img} 
+                                alt={selectedMember.nama} 
+                                className="w-full h-full object-cover object-top transition-transform duration-500 hover:scale-105" 
+                            />
+                        </div>
+
+                        {/* Nama & Jabatan */}
+                        <div className="text-center space-y-3">
+                            <h3 className="text-2xl md:text-3xl font-black uppercase tracking-tighter leading-none">
+                                {selectedMember.nama}
+                            </h3>
+                            <div className="inline-block px-6 py-1.5 rounded-full bg-[#93ff8d] text-black text-[10px] md:text-xs font-black uppercase tracking-[0.2em] shadow-lg">
+                                {selectedMember.label || selectedMember.jabatan}
+                            </div>
+                        </div>
+
+                        {/* Quote Motivasi */}
+                        <p className="mt-8 text-white/50 text-xs md:text-sm italic leading-relaxed text-center font-serif px-4">
+                            "Berdedikasi untuk kemajuan dan kesejahteraan seluruh warga Desa Sidodadi Asri."
+                        </p>
                     </div>
                 </div>
             )}

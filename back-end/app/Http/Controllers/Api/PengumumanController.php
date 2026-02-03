@@ -13,7 +13,7 @@ class PengumumanController extends Controller
         return Pengumuman::where('status', 'aktif')
             ->whereDate('tanggal_kegiatan', '>=', now())
             ->orderBy('tanggal_kegiatan', 'asc')
-            ->limit(2)
+            ->limit(1)
             ->get();
     }
 
