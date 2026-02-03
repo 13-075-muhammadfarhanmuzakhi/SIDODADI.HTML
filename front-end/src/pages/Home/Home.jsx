@@ -219,9 +219,9 @@ const Home = () => {
             transition={{ duration: 0.8 }}
             className="max-w-5xl space-y-6"
           >
-            <h1 className="text-white text-4xl md:text-8xl font-black tracking-tighter drop-shadow-2xl uppercase leading-[0.9]">
+            <h1 className="text-white text-4xl md:text-6xl font-black tracking-tighter drop-shadow-2xl uppercase leading-[0.9]">
               Selamat Datang di <br />
-              <span className="text-emerald-400">Desa Sidodadi Asri</span>
+              <span className="text-white-400">Desa Sidodadi Asri</span>
             </h1>
             <p className="text-white/90 text-sm md:text-2xl font-medium max-w-3xl mx-auto leading-relaxed tracking-wide">
               Kecamatan Jati Agung, Kabupaten Lampung Selatan, <br className="hidden md:block" />
@@ -384,7 +384,7 @@ const Home = () => {
             {/* NAVIGASI HALAMAN (DI TAB YANG SAMA) */}
             <div className="w-full lg:w-1/3 flex flex-col items-center">
               <h4 className="text-slate-900 font-black text-xs md:text-sm uppercase tracking-[0.4em] border-b-4 border-emerald-500 pb-2 mb-10 inline-block">
-                Eksplorasi
+                Navigasi
               </h4>
               <ul className="grid grid-cols-2 lg:grid-cols-1 gap-x-12 gap-y-5 text-slate-600 font-black text-xs md:text-sm text-center lg:text-center">
                 <li><Link to="/" className="hover:text-emerald-600 transition-all uppercase tracking-widest">Beranda</Link></li>
@@ -398,7 +398,7 @@ const Home = () => {
             {/* KONEKSI MEDIA SOSIAL */}
             <div className="flex flex-col items-center lg:items-end w-full lg:w-1/3">
               <h4 className="text-slate-900 font-black text-xs md:text-sm uppercase tracking-[0.4em] border-b-4 border-emerald-500 pb-2 mb-10 inline-block">
-                Ikuti Kami
+                Media Sosial Kami
               </h4>
               <div className="flex items-center gap-8">
                 <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="transform hover:scale-125 transition-all duration-500">
