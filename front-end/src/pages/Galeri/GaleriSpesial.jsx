@@ -192,23 +192,19 @@ const GaleriSpesial = () => {
             <div className="h-1 w-12 bg-[#93ff8d] mx-auto mt-2" />
           </div>
 
-          <div className="relative group rounded-[40px] overflow-hidden border border-white/10 aspect-video shadow-2xl">
-            <img
-              src={bgUp}
-              alt="Thumbnail"
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-            />
-            <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                className="w-16 h-16 bg-[#93ff8d] rounded-full flex items-center justify-center shadow-lg"
-              >
-                <div className="border-y-[10px] border-y-transparent border-l-[16px] border-l-black ml-1" />
-              </motion.button>
-            </div>
+          <div className="relative group rounded-[40px] overflow-hidden border border-white/10 aspect-video shadow-2xl bg-black">
+            {/* Menggunakan iframe untuk YouTube */}
+            <iframe
+              className="w-full h-full"
+              src="https://www.youtube.com/embed/rOtAI6uZbU0?si=43uzQkZBr41xDOBD" 
+              title="After Movie Desa Sidodadi Asri"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            ></iframe>
           </div>
 
-          <p className="mt-10 text-center text-white/70 italic font-serif">
+          <p className="mt-10 text-center text-white/70 italic font-serif px-4">
             "Desa ini telah menjadi rumah yang memberikan banyak kenangan bagi
             kami selama 30 hari penuh makna."
           </p>
