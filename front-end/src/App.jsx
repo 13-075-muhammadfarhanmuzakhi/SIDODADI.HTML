@@ -9,8 +9,8 @@ import Layanan from "./pages/Layanan/Layanan";
 import LayananForm from "./pages/Layanan/LayananForm";
 import StatusDokumen from "./pages/Layanan/StatusDokumen";
 import Profile from "./pages/Profil/Profil";
-import LamanArtikelDesa from './pages/Galeri/LamanArtikelDesa';
-import GaleriSpesial from './pages/Galeri/GaleriSpesial';
+import LamanArtikelDesa from "./pages/Galeri/LamanArtikelDesa";
+import GaleriSpesial from "./pages/Galeri/GaleriSpesial";
 
 // ================= ADMIN =================
 import Akun from "./pages/Admin/Akun";
@@ -20,7 +20,6 @@ import AdminDashboard from "./pages/Admin/Dashboard";
 import AdminLayanan from "./pages/Admin/Layanan";
 import AdminLayout from "./pages/Admin/Layouts/AdminLayouts";
 import AdminLogin from "./pages/Admin/Login";
-import StrukturOrganisasi from './pages/Profil/StrukturOrganisasi';
 
 function App() {
   return (
@@ -30,13 +29,13 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/kontak" element={<Kontak />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/profil" element={<Profile />} />
         <Route path="/galeri" element={<Galeri />} />
         <Route path="/layanan" element={<Layanan />} />
         <Route path="/layanan/form" element={<LayananForm />} />
         <Route path="/layanan/status-dokumen" element={<StatusDokumen />} />
         <Route path="/galeri-spesial" element={<GaleriSpesial />} />
         <Route path="/artikel-desa/:id" element={<LamanArtikelDesa />} />
-        <Route path="/profil" element={<StrukturOrganisasi />} />
       </Route>
 
       {/* ADMIN LOGIN */}

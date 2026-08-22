@@ -2,19 +2,10 @@ import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 
-/**
- * ============================================================
- * IMPORT ASSETS (LOGO & BACKGROUND)
- * ============================================================
- */
-import logoKKN from "../../assets/images/logokkn.png";
-import bungaBg from "../../assets/images/BUNGA.png";
+// Import Component Marquee Banner
+import MarqueeBanner from "../../layouts/MarqueeBanner";
 
-/**
- * ============================================================
- * IMPORT FOTO TESTIMONIAL
- * ============================================================
- */
+import logoKKN from "../../assets/images/logokkn.png";
 import fotoLegina from "../../assets/images/legina.jpeg";
 import fotoMulyadi from "../../assets/images/mulyadi.jpeg";
 import fotoSumarman from "../../assets/images/sumarman.jpeg";
@@ -27,66 +18,55 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [current, setCurrent] = useState(0);
 
-  // STATE PENGUMUMAN DARI API
-  // STATE PENGUMUMAN
   const [showNotif, setShowNotif] = useState(false);
   const [pengumuman, setPengumuman] = useState([]);
-  const [notifMessage, setNotifMessage] = useState("");
 
-
-  /**
-   * DATA TESTIMONIAL LENGKAP
-   */
   const testimonials = [
     {
       id: 1,
       name: "SUTIBYO & LEGINA",
       position: "PENSIUNAN - IRT",
-      text: "Desa sidodadi asri adalah desa yang nyaman untuk ditinggali karena warganya hidup rukun, ramah, dan terbiasa bermusyawarah dalam menyelesaikan berbagai urusan. Suasana kekeluargaannya sangat kental sehingga kami merasa sangat tenang menghabiskan masa tua di sini.",
+      text: "Desa yang nyaman ditinggali, warga hidup rukun, ramah, dan musyawarah selalu diutamakan.",
       image: fotoLegina,
     },
     {
       id: 2,
       name: "MULYADI",
-      position: "WARGA DESA SIDODADI ASRI",
-      text: "Desa sidodadi asri adalah desa yang memiliki rasa kebersamaan dan solidaritas yang sangat kuat sejak dulu, budaya gotong royong yang nyata dilakukan oleh warga desa ini dalam berbagai kegiatan pembangunan maupun sosial.",
+      position: "WARGA SIDODADI ASRI",
+      text: "Solidaritas dan budaya gotong royong sangat nyata dalam kegiatan pembangunan sosial.",
       image: fotoMulyadi,
     },
     {
       id: 3,
       name: "SUMARMAN",
       position: "KEPALA DUSUN 1",
-      text: "Desa sidodadi asri adalah desa yang memiliki rasa persaudaraan yang kuat antarwarga, sehingga terasa hangat dan penuh kebersamaan. Kami selaku perangkat desa selalu berupaya menjaga keharmonisan ini demi kemajuan bersama.",
+      text: "Rasa persaudaraan kuat antarwarga, hangat dan penuh kebersamaan untuk kemajuan.",
       image: fotoSumarman,
     },
     {
       id: 4,
-      name: "KABUL SUJATMIKO & RUKIYAH",
+      name: "KABUL & RUKIYAH",
       position: "WARGA SIDODADI ASRI",
-      text: "Desa sidodadi asri adalah desa yang memberikan rasa nyaman dan memiliki hubungan sosial yang hangat antara sesama warga. Tidak ada sekat antar suku maupun agama, semuanya hidup berdampingan dengan damai.",
+      text: "Memberikan rasa nyaman dan sosial yang hangat tanpa sekat suku maupun agama.",
       image: fotoRukiyah,
     },
     {
       id: 5,
       name: "NASIFATUL AINI",
       position: "PEMILIK UMKM",
-      text: "Desa sidodadi asri adalah desa desa yang ramai, mendukung perekonomian masyarakat, dan memberikan peluang usaha yang baik bagi warganya. UMKM di sini sangat didukung oleh pemerintah desa dan warga sekitar.",
+      text: "Mendukung perekonomian masyarakat, memberikan peluang usaha yang baik.",
       image: fotoAini,
     },
     {
       id: 6,
       name: "ARI AFFANDI",
       position: "KETUA RT",
-      text: "Desa sidodadi asri adalah desa yang terbuka sehingga pendatang pun mudah diterima dan dapat berperan aktif dalam kehidupan masyarakat. Keamanan dan ketertiban selalu kami jaga bersama melalui siskamling yang aktif.",
+      text: "Terbuka bagi pendatang. Keamanan selalu dijaga bersama melalui siskamling aktif.",
       image: fotoAri,
     },
   ];
 
-  /**
-   * USE EFFECT: FETCH DATA & NOTIFICATION TIMER
-   */
   useEffect(() => {
-    // Logic Fetch Artikel dari API
     const fetchArticles = async () => {
       try {
         const response = await fetch("http://127.0.0.1:8000/api/artikel");
@@ -98,29 +78,24 @@ const Home = () => {
         setLoading(false);
       }
     };
-  
-    // ================= PENGUMUMAN HOME =================
+
     const fetchPengumuman = async () => {
       try {
         const res = await fetch("http://127.0.0.1:8000/api/pengumuman-home");
         const data = await res.json();
-  
         if (Array.isArray(data) && data.length > 0) {
-          setPengumuman(data);          // ← ARRAY
+          setPengumuman(data);
           setTimeout(() => setShowNotif(true), 1000);
         }
       } catch (err) {
         console.error("Gagal mengambil pengumuman:", err);
       }
     };
-  
+
     fetchArticles();
     fetchPengumuman();
-  }, []);  
+  }, []);
 
-  /**
-   * HANDLER NAVIGATION TESTIMONI
-   */
   const handlePrev = () => {
     setCurrent((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
   };
@@ -130,289 +105,437 @@ const Home = () => {
   };
 
   return (
-    <main className="relative flex flex-col w-full min-h-screen font-sans antialiased text-slate-900 bg-slate-50 overflow-x-hidden">
-      
+    <main className="relative flex flex-col w-full min-h-screen font-sans antialiased text-slate-800 bg-white overflow-x-hidden">
+      {/* 🌟 CSS KHUSUS ANIMASI */}
+      <style>{`
+        @keyframes gradientMove {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+        .text-gradient-animate {
+          background-size: 200% auto;
+          animation: gradientMove 3s linear infinite;
+        }
+        .border-animated-wrapper {
+          position: relative;
+          border-radius: 1.5rem;
+          padding: 3px;
+          background: linear-gradient(90deg, #064e3b, #eab308, #064e3b, #eab308);
+          background-size: 300% 300%;
+          animation: gradientMove 3s linear infinite;
+        }
+        .border-animated-inner {
+          background-color: white; 
+          border-radius: calc(1.5rem - 3px);
+          height: 100%;
+          overflow: hidden;
+        }
+        .footer-border-animated {
+          background: linear-gradient(90deg, #064e3b, #eab308, #064e3b, #eab308);
+          background-size: 300% 300%;
+          animation: gradientMove 3s linear infinite;
+          padding-top: 4px;
+          padding-right: 4px;
+          border-top-right-radius: 4rem;
+        }
+        .footer-inner {
+          background-color: #052e16;
+          border-top-right-radius: calc(4rem - 4px);
+        }
+      `}</style>
+
       {/* 🔔 FITUR NOTIFIKASI PENGUMUMAN */}
       <AnimatePresence>
-      {showNotif &&
-        pengumuman.map((item, index) => (
-          <motion.div
-            key={item.id_pengumuman}
-            initial={{ opacity: 0, x: -100 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -100 }}
-            className="fixed left-6 z-[999] max-w-[320px] md:max-w-md"
-            style={{ top: `${80 + index * 190}px` }} // 🔥 STACK
-          >
-            <div className="bg-white/80 backdrop-blur-xl p-6 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.2)] border border-white/40 relative overflow-hidden">
-              
-              {/* Garis kiri */}
-              <div className="absolute top-0 left-0 w-2 h-full bg-emerald-500"></div>
-
-              {/* Close */}
-              <button
-                onClick={() => setShowNotif(false)}
-                className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-500 hover:text-white transition shadow-sm"
-              >
-                ✕
-              </button>
-
-              <div className="pl-4 md:pl-6">
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="relative flex h-3.5 w-3.5">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-500"></span>
-                  </span>
-                  <h4 className="text-emerald-700 font-black text-[10px] md:text-xs uppercase tracking-[0.3em]">
-                    Pengumuman Desa
+        {showNotif &&
+          pengumuman.map((item, index) => (
+            <motion.div
+              key={item.id_pengumuman}
+              initial={{ opacity: 0, x: -100 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -100 }}
+              className="fixed left-6 z-[999] max-w-[300px]"
+              style={{ top: `${80 + index * 160}px` }}
+            >
+              <div className="bg-white p-5 rounded-2xl shadow-xl border border-green-900/10 relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-1.5 h-full bg-green-800"></div>
+                <button
+                  onClick={() => setShowNotif(false)}
+                  className="absolute top-3 right-3 w-6 h-6 flex items-center justify-center rounded-full bg-slate-100 text-slate-500 hover:bg-red-50 hover:text-red-600 transition text-xs"
+                >
+                  ✕
+                </button>
+                <div className="pl-3">
+                  <h4 className="text-green-800 font-bold text-[10px] uppercase tracking-wider mb-1">
+                    Pengumuman
                   </h4>
-                </div>
-
-                <p className="text-slate-700 text-sm leading-relaxed font-medium">
-                  <strong>{item.judul}</strong>
-                  <br />
-                  {item.isi}
-                </p>
-
-                <div className="mt-2 text-xs text-slate-500 italic">
-                  📅 {new Date(item.tanggal_kegiatan).toLocaleDateString("id-ID")}
-                </div>
-
-                <div className="mt-4 flex items-center gap-2 text-[10px] text-slate-400 font-mono italic">
-                  <span>Sidodadi Asri Info</span>
-                
-                <p className="text-slate-800 text-sm md:text-lg leading-relaxed font-bold">
-                  {notifMessage}
-                </p>
-                
-                <div className="mt-6 flex items-center gap-3 text-[10px] md:text-xs text-slate-400 font-mono italic">
-                  <span className="bg-slate-100 px-2 py-1 rounded">Baru Saja</span>
-                  <span>•</span>
-                  <span>Sidodadi Asri Digital</span>
+                  <p className="text-slate-800 text-xs leading-relaxed">
+                    <strong className="block mb-0.5">{item.judul}</strong>
+                    {item.isi}
+                  </p>
                 </div>
               </div>
-            </div>
-          </div>
-          </motion.div>
-        ))}
-    </AnimatePresence>
+            </motion.div>
+          ))}
+      </AnimatePresence>
 
-
-      {/* 🎬 SECTION 1: HERO (VIDEO PROFILE) */}
-      <section className="relative h-[80vh] md:h-screen w-full overflow-hidden shadow-2xl">
-        <div className="absolute inset-0 bg-black z-0">
-          <iframe
-            className="absolute inset-0 w-full h-full pointer-events-none scale-[1.3] md:scale-110"
-            style={{
-              width: "100vw", height: "56.25vw", minHeight: "100vh", minWidth: "177.77vh",
-              position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)",
-            }}
-            src="https://www.youtube.com/embed/MAcDzuu_jOc?autoplay=1&mute=1&loop=1&playlist=MAcDzuu_jOc&controls=0&showinfo=0&modestbranding=1&rel=0&iv_load_policy=3&disablekb=1"
-            title="Video Profil Desa" frameBorder="0" allow="autoplay; encrypted-media"
-          />
-        </div>
-        
-        <div className="absolute inset-0 bg-slate-900/60 z-10 flex flex-col justify-center items-center text-center px-6">
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            className="max-w-5xl space-y-6"
+      {/* 🎬 SECTION 1: HERO */}
+      <section
+        className="relative h-screen w-full flex items-center bg-green-950 overflow-hidden"
+        style={{
+          backgroundImage:
+            "url('https://images.unsplash.com/photo-1518182170546-076616fdfaaf?auto=format&fit=crop&q=80')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="absolute inset-0 bg-green-950/80 z-10"></div>
+        <div className="relative z-20 px-8 md:px-24 max-w-5xl w-full">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            className="space-y-6"
           >
-            <h1 className="text-white text-4xl md:text-6xl font-black tracking-tighter drop-shadow-2xl uppercase leading-[0.9]">
-              Selamat Datang di <br />
-              <span className="text-white-400">Desa Sidodadi Asri</span>
+            <div className="inline-flex items-center gap-2 bg-white px-5 py-2 rounded-full shadow-lg">
+              <svg
+                className="w-4 h-4 text-green-700"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"
+                ></path>
+              </svg>
+              <span className="text-green-800 font-bold tracking-widest uppercase text-xs">
+                Selamat Datang
+              </span>
+            </div>
+
+            <h1 className="text-5xl md:text-7xl font-serif font-bold tracking-tight leading-[1.1]">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-yellow-500 to-emerald-400 text-gradient-animate">
+                Sidodadi Asri
+              </span>
             </h1>
-            <p className="text-white/90 text-sm md:text-2xl font-medium max-w-3xl mx-auto leading-relaxed tracking-wide">
-              Kecamatan Jati Agung, Kabupaten Lampung Selatan, <br className="hidden md:block" />
-              Provinsi Lampung, Indonesia.
+            <h2 className="text-white text-2xl md:text-3xl font-semibold">
+              Desa Asri Penuh Kebersamaan
+            </h2>
+
+            <p className="text-slate-300 text-sm md:text-base font-light max-w-2xl leading-relaxed">
+              Selamat datang di portal resmi Desa Sidodadi Asri, Kecamatan Jati
+              Agung, Kabupaten Lampung Selatan. Mengusung nilai kerukunan,
+              pendidikan, dan pemberdayaan masyarakat.
             </p>
+
+            <div className="flex flex-wrap items-center gap-4 pt-4">
+              <Link
+                to="/layanan"
+                className="bg-white text-green-900 font-semibold px-8 py-3 rounded-full hover:bg-slate-100 transition-all flex items-center gap-2"
+              >
+                Layanan Desa <span className="text-xl">→</span>
+              </Link>
+              <Link
+                to="/profile"
+                className="bg-transparent text-white font-semibold px-8 py-3 rounded-full border border-white hover:bg-white/10 transition-all"
+              >
+                Profil Desa
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>
 
-      {/* 📰 SECTION 2: BERITA & KEGIATAN DESA */}
-      <section className="relative bg-white py-16 md:py-28 px-4 md:px-10 overflow-hidden">
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="flex flex-col items-center mb-16 md:mb-20">
-            <h2 className="text-3xl md:text-5xl font-black text-slate-800 text-center uppercase tracking-tighter mb-4">
-              Warta & Kabar Desa
+      {/* 📢 MARQUEE BANNER TEPA T DI BAWAH HERO */}
+      <MarqueeBanner />
+
+      {/* 📰 SECTION 2: WARTA & GALERI */}
+      <section className="bg-white py-16 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 mb-10 flex justify-between items-center">
+          <div>
+            <h2 className="text-2xl md:text-3xl font-extrabold text-[#0A261D] tracking-tight">
+              Galeri & Kabar Desa
             </h2>
-            <div className="w-24 h-2 bg-emerald-500 rounded-full"></div>
+            <div className="w-16 h-1 bg-gradient-to-r from-[#0A261D] to-[#B8860B] mt-2 rounded-full"></div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
-            {!loading &&
-              articles.map((item, index) => (
-                <article
-                  key={item.id_artikel}
-                  className="group flex flex-col rounded-[2.5rem] md:rounded-[3.5rem] border border-slate-100 overflow-hidden hover:shadow-[0_40px_80px_rgba(0,0,0,0.1)] transition-all duration-700 bg-white h-full transform hover:-translate-y-4"
-                >
-                  <div className="h-56 md:h-64 overflow-hidden relative">
-                    <img
-                      src={`http://127.0.0.1:8000/artikel/${item.img}`}
-                      alt={item.judul_artikel}
-                      className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                    />
-                    <div className="absolute top-6 left-6 bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest text-emerald-700 shadow-sm">
-                      Informasi
-                    </div>
-                  </div>
+          {/* CARD MINI UNTUK LINK "LIHAT SEMUA" DENGAN BORDER WARNA */}
+          <Link
+            to="/galeri"
+            className="group px-4 py-2 bg-white rounded-xl border border-[#B8860B]/40 shadow-xs hover:shadow-md hover:bg-[#0A261D] transition-all duration-300 flex items-center gap-2"
+          >
+            <span className="text-xs font-bold text-[#0A261D] group-hover:text-[#D4AF37] uppercase tracking-wider transition-colors">
+              Lihat Semua
+            </span>
+            <span className="text-xs font-bold text-[#B8860B] group-hover:text-[#D4AF37] group-hover:translate-x-1 transition-transform">
+              →
+            </span>
+          </Link>
+        </div>
 
-                  <div className="p-8 md:p-12 flex flex-col flex-grow">
-                    <h3 className="text-xl md:text-2xl font-black text-slate-800 mb-4 group-hover:text-emerald-600 transition-colors leading-tight">
-                      {item.judul_artikel}
-                    </h3>
-                    <p className="text-slate-500 text-sm md:text-base line-clamp-3 mb-8 leading-relaxed font-medium">
-                      {item.deskripsi}
-                    </p>
-                    <div className="mt-auto">
-                      <Link to={`/artikel-desa/${item.id_artikel}`} className="inline-flex items-center gap-3 text-emerald-600 font-black text-xs md:text-sm uppercase tracking-[0.2em] group/btn">
-                        Baca Selengkapnya
-                        <div className="w-8 h-8 rounded-full bg-emerald-50 flex items-center justify-center group-hover/btn:bg-emerald-600 group-hover/btn:text-white transition-all">
-                          →
-                        </div>
+        <div className="w-full overflow-hidden relative flex py-4">
+          <div className="absolute left-0 top-0 w-16 h-full bg-gradient-to-r from-white to-transparent z-10"></div>
+          <div className="absolute right-0 top-0 w-16 h-full bg-gradient-to-l from-white to-transparent z-10"></div>
+
+          <motion.div
+            className="flex gap-6 px-6"
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
+            style={{ width: "max-content" }}
+          >
+            {loading ? (
+              <div className="text-slate-500">Memuat kabar...</div>
+            ) : (
+              [...articles, ...articles].map((item, index) => (
+                <article
+                  key={`${item.id_artikel}-${index}`}
+                  className="w-64 shrink-0 border-animated-wrapper shadow-md"
+                >
+                  <div className="border-animated-inner bg-white flex flex-col h-full">
+                    <div className="h-40 overflow-hidden relative">
+                      <img
+                        src={`http://127.0.0.1:8000/artikel/${item.img}`}
+                        alt={item.judul_artikel}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          e.target.src =
+                            "https://via.placeholder.com/300x200?text=No+Image";
+                        }}
+                      />
+                    </div>
+                    <div className="p-4 flex flex-col flex-grow">
+                      <h3 className="text-sm font-bold text-slate-800 line-clamp-2 mb-2">
+                        {item.judul_artikel}
+                      </h3>
+                      <Link
+                        to={`/artikel-desa/${item.id_artikel}`}
+                        className="mt-auto text-yellow-600 font-bold text-xs uppercase hover:text-green-700"
+                      >
+                        Baca →
                       </Link>
                     </div>
                   </div>
                 </article>
-              ))}
+              ))
+            )}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* 📹 SECTION 3: VIDEO PROFIL */}
+      <section className="bg-slate-50 py-16 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-2xl md:text-3xl font-extrabold text-[#0A261D] tracking-tight">
+            Mengenal Sidodadi Asri
+          </h2>
+          <div className="w-16 h-1 bg-gradient-to-r from-[#0A261D] to-[#B8860B] mx-auto mt-2 mb-8 rounded-full"></div>
+
+          {/* Pembungkus Video dengan Border Gradasi Hijau-Emas */}
+          <div className="border-animated-wrapper shadow-xl rounded-2xl p-[3px] bg-gradient-to-r from-[#0A261D] via-[#B8860B] to-[#0A261D]">
+            <div className="border-animated-inner bg-slate-900 rounded-[calc(1rem-1px)] overflow-hidden relative aspect-video">
+              <iframe
+                className="absolute inset-0 w-full h-full"
+                src="https://www.youtube.com/embed/MAcDzuu_jOc?rel=0&modestbranding=1"
+                title="Video Profil Desa"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 💬 SECTION 3: TESTIMONIAL WARGA */}
-      <section className="bg-slate-900 py-20 md:py-32 px-4 md:px-10 relative overflow-hidden">
-        {/* Background Accent */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-[120px] -mr-48 -mt-48"></div>
-        
-        <div className="max-w-6xl mx-auto relative z-10">
-          <div className="text-center mb-16 md:mb-24">
-            <div className="inline-flex w-16 h-16 bg-white/5 rounded-full items-center justify-center border border-white/10 mb-8 shadow-2xl text-white font-black text-3xl">
-              ?
-            </div>
-            <h2 className="text-3xl md:text-6xl font-black text-white tracking-tighter uppercase leading-none">
-              Apa Kata Warga Lokal?
+      {/* 💬 SECTION 4: TESTIMONIAL WARGA */}
+      <section className="bg-white py-16 px-6 relative mb-20">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl md:text-3xl font-extrabold text-green-900 tracking-tight">
+              Pendapat mereka tentang desa ini
             </h2>
-            <p className="text-slate-400 mt-6 text-sm md:text-lg font-medium italic opacity-70">
-              Cerita jujur dari mereka yang tinggal di Desa Sidodadi Asri
-            </p>
+            <div className="w-16 h-1 bg-yellow-500 mx-auto mt-2"></div>
           </div>
 
-          <div className="bg-[#1e293b] rounded-[2.5rem] md:rounded-[4rem] overflow-hidden flex flex-col md:flex-row shadow-[0_50px_100px_rgba(0,0,0,0.4)] border border-white/5">
-            {/* Bagian Foto Warga */}
-            <div className="h-80 md:h-[600px] md:w-[45%] relative bg-slate-800 overflow-hidden shrink-0 group">
-              <img
-                src={testimonials[current].image}
-                alt={testimonials[current].name}
-                className="w-full h-full object-cover object-top transition-transform duration-1000 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent md:hidden"></div>
-            </div>
-            
-            {/* Bagian Teks Testimoni */}
-            <div className="md:w-[55%] p-10 md:p-20 flex flex-col justify-between relative">
-              <div className="space-y-8 md:space-y-12">
-                <div>
-                  <h3 className="text-2xl md:text-4xl font-black text-white uppercase tracking-tight leading-tight">
-                    {testimonials[current].name}
-                  </h3>
-                  <div className="flex items-center gap-3 mt-4">
-                    <div className="h-0.5 w-8 bg-emerald-500"></div>
-                    <p className="text-emerald-400 font-black text-[10px] md:text-xs tracking-[0.3em] uppercase">
-                      {testimonials[current].position}
-                    </p>
-                  </div>
-                </div>
-                
-                <p className="text-slate-200 text-lg md:text-2xl italic leading-relaxed font-serif">
+          <div className="border-animated-wrapper shadow-xl rounded-[1.6rem]">
+            <div className="border-animated-inner bg-white flex flex-col md:flex-row rounded-3xl overflow-hidden">
+              {/* Foto Warga */}
+              <div className="md:w-1/3 relative bg-slate-200 min-h-[250px]">
+                <img
+                  src={testimonials[current].image}
+                  alt={testimonials[current].name}
+                  className="absolute inset-0 w-full h-full object-cover object-top"
+                />
+              </div>
+
+              {/* Konten Teks */}
+              <div className="md:w-2/3 p-8 flex flex-col justify-center bg-white">
+                <svg
+                  className="w-8 h-8 text-yellow-400 mb-4"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                </svg>
+                <p className="text-slate-800 text-base md:text-lg italic font-medium leading-relaxed mb-6">
                   "{testimonials[current].text}"
                 </p>
-              </div>
-              
-              <div className="flex items-center justify-between mt-16 pt-10 border-t border-white/10">
-                <div className="flex gap-4 md:gap-6">
-                  <button onClick={handlePrev} className="w-14 h-14 rounded-full border border-white/20 text-white flex items-center justify-center hover:bg-emerald-600 hover:border-emerald-600 transition-all shadow-xl active:scale-90">
+                <div>
+                  <h3 className="text-lg font-bold text-yellow-500 uppercase">
+                    {testimonials[current].name}
+                  </h3>
+                  <p className="text-green-500 font-semibold text-xs tracking-wider uppercase">
+                    {testimonials[current].position}
+                  </p>
+                </div>
+
+                {/* Tombol Navigasi Slider */}
+                <div className="flex items-center gap-4 mt-8">
+                  <button
+                    onClick={handlePrev}
+                    className="w-8 h-8 rounded-full bg-slate-100 text-green-900 flex items-center justify-center hover:bg-yellow-500 hover:text-white transition-all shadow-sm"
+                  >
                     ←
                   </button>
-                  <button onClick={handleNext} className="w-14 h-14 rounded-full border border-white/20 text-white flex items-center justify-center hover:bg-emerald-600 hover:border-emerald-600 transition-all shadow-xl active:scale-90">
+                  <button
+                    onClick={handleNext}
+                    className="w-8 h-8 rounded-full bg-slate-100 text-green-900 flex items-center justify-center hover:bg-yellow-500 hover:text-white transition-all shadow-sm"
+                  >
                     →
                   </button>
                 </div>
-                
-                <div className="text-slate-500 font-mono text-sm md:text-xl">
-                  <span className="text-emerald-400 font-black tracking-tighter">0{current + 1}</span> 
-                  <span className="mx-2 opacity-20">/</span> 
-                  <span className="opacity-40">0{testimonials.length}</span>
-                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 🏛️ SECTION 4: FOOTER (OFFICIAL INFO) */}
-      <footer className="relative w-full bg-white border-t border-slate-100 overflow-hidden pt-20 md:pt-32 pb-12">
-        <img
-          src={bungaBg}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover opacity-[0.03] pointer-events-none z-0 scale-150"
-        />
-
-        <div className="relative z-10 max-w-7xl mx-auto px-8">
-          <div className="flex flex-col lg:flex-row justify-between items-start gap-16 lg:gap-10">
-            
-            {/* IDENTITAS DESA */}
-            <div className="flex flex-col gap-8 w-full lg:w-1/3 items-center lg:items-start text-center lg:text-left">
-              <div className="flex items-center gap-6">
-                <div className="bg-white p-3 rounded-[2rem] shadow-2xl border border-slate-50 transform -rotate-6">
-                  <img src={logoKKN} alt="Logo KKN" className="w-16 h-16 md:w-20 md:h-20 object-contain" />
-                </div>
-                <div className="text-left rotate-0">
-                  <h3 className="text-slate-400 font-black text-[10px] md:text-[12px] uppercase tracking-[0.3em]">KKN Tematik ITERA</h3>
-                  <p className="text-slate-900 text-3xl md:text-4xl font-black tracking-tighter leading-none">Sidodadi Asri</p>
-                </div>
-              </div>
-              <div className="space-y-2">
-                <p className="text-slate-800 font-black text-base md:text-lg">Website Resmi Informasi Desa</p>
-                <p className="text-slate-500 font-medium text-sm md:text-base leading-relaxed opacity-60 italic">
-                  Memberikan informasi akurat dan transparan bagi seluruh warga Desa Sidodadi Asri, Kecamatan Jati Agung.
+      {/* ================= 5. FOOTER INLINE (GRADASI HIJAU HITAM & NAVIGASI LAYANAN) ================= */}
+      <footer className="w-full bg-gradient-to-b from-[#052e1d] to-[#02140D] text-slate-200 border-t-2 border-[#B8860B]/40 pt-10 pb-6 px-4 md:px-8">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 pb-8 border-b border-[#B8860B]/20">
+          {/* Identitas Desa */}
+          <div className="space-y-3 md:col-span-1">
+            <div className="flex items-center gap-3">
+              <img
+                src={logoKKN}
+                alt="Logo Desa"
+                className="w-10 h-10 object-contain"
+              />
+              <div>
+                <h3 className="font-extrabold text-base text-amber-400 tracking-wide">
+                  SIDODADI ASRI
+                </h3>
+                <p className="text-[10px] text-slate-400">
+                  Jati Agung, Lampung Selatan
                 </p>
               </div>
             </div>
-
-            {/* NAVIGASI HALAMAN (DI TAB YANG SAMA) */}
-            <div className="w-full lg:w-1/3 flex flex-col items-center">
-              <h4 className="text-slate-900 font-black text-xs md:text-sm uppercase tracking-[0.4em] border-b-4 border-emerald-500 pb-2 mb-10 inline-block">
-                Navigasi
-              </h4>
-              <ul className="grid grid-cols-2 lg:grid-cols-1 gap-x-12 gap-y-5 text-slate-600 font-black text-xs md:text-sm text-center lg:text-center">
-                <li><Link to="/" className="hover:text-emerald-600 transition-all uppercase tracking-widest">Beranda</Link></li>
-                <li><Link to="/profile" className="hover:text-emerald-600 transition-all uppercase tracking-widest">Profil Desa</Link></li>
-                <li><Link to="/layanan" className="hover:text-emerald-600 transition-all uppercase tracking-widest">Layanan Desa</Link></li>
-                <li><Link to="/kontak" className="hover:text-emerald-600 transition-all uppercase tracking-widest">Kontak Kami</Link></li>
-                <li><Link to="/galeri" className="hover:text-emerald-600 transition-all uppercase tracking-widest">Galeri & Artikel</Link></li>
-              </ul>
-            </div>
-
-            {/* KONEKSI MEDIA SOSIAL */}
-            <div className="flex flex-col items-center lg:items-end w-full lg:w-1/3">
-              <h4 className="text-slate-900 font-black text-xs md:text-sm uppercase tracking-[0.4em] border-b-4 border-emerald-500 pb-2 mb-10 inline-block">
-                Media Sosial Kami
-              </h4>
-              <div className="flex items-center gap-8">
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="transform hover:scale-125 transition-all duration-500">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/132px-Instagram_logo_2016.svg.png" alt="IG" className="w-10 h-10 md:w-12 md:h-12 shadow-sm" />
-                </a>
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="transform hover:scale-125 transition-all duration-500">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Facebook_Logo_2023.png" alt="FB" className="w-10 h-10 md:w-12 md:h-12 shadow-sm" />
-                </a>
-                <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="bg-black w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center transform hover:scale-125 transition-all duration-500 shadow-xl">
-                  <img src="https://toppng.com/uploads/preview/tiktok-logo-png-download-116616376145yvg1mox2s.png" alt="TK" className="w-5 h-5 md:w-6 md:h-6 object-contain invert" />
-                </a>
-              </div>
-            </div>
+            <p className="text-xs text-slate-300 leading-relaxed">
+              Portal resmi pelayanan publik dan transparansi informasi
+              masyarakat Desa Sidodadi Asri.
+            </p>
           </div>
+
+          {/* Navigasi (Layanan Surat Berwarna Emas) */}
+          <div>
+            <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider mb-3 border-b border-[#B8860B]/30 pb-1 inline-block">
+              Navigasi Halaman
+            </h4>
+            <ul className="space-y-2 text-xs">
+              <li>
+                <Link
+                  to="/"
+                  className="text-[#B8860B] font-extrabold transition-colors"
+                >
+                  Beranda
+                </Link>
+              </li>
+              <li>
+                {/* Penanda emas dihilangkan dari Profil Desa */}
+                <Link
+                  to="/profile"
+                  className="text-slate-300 hover:text-amber-300 transition-colors"
+                >
+                  Profil Desa
+                </Link>
+              </li>
+              <li>
+                {/* Penanda emas dipindah ke Layanan Surat */}
+                <Link
+                  to="/layanan"
+                  className="text-slate-300 hover:text-amber-300 transition-colors"
+                >
+                  Layanan Surat
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/Kontak"
+                  className="text-slate-300 hover:text-amber-300 transition-colors"
+                >
+                  Kontak
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  to="/galeri"
+                  className="text-slate-300 hover:text-amber-300 transition-colors"
+                >
+                  Galeri & Berita
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Jam Operasional */}
+          <div>
+            <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider mb-3 border-b border-[#B8860B]/30 pb-1 inline-block">
+              Jam Pelayanan
+            </h4>
+            <ul className="space-y-1 text-xs text-slate-300">
+              <li className="flex justify-between">
+                <span>Senin - Kamis:</span>
+                <span className="font-semibold text-amber-200">
+                  08:00 - 15:30 WIB
+                </span>
+              </li>
+              <li className="flex justify-between">
+                <span>Jumat:</span>
+                <span className="font-semibold text-amber-200">
+                  08:00 - 11:30 WIB
+                </span>
+              </li>
+              <li className="flex justify-between">
+                <span>Sabtu - Minggu:</span>
+                <span className="font-semibold text-red-400">Tutup</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Kontak Desa */}
+          <div>
+            <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider mb-3 border-b border-[#B8860B]/30 pb-1 inline-block">
+              Kontak Kantor
+            </h4>
+            <p className="text-xs text-slate-300 leading-relaxed mb-1.5">
+              📍 Jl. Balai Desa No. 01, Sidodadi Asri, Kec. Jati Agung, Kab.
+              Lampung Selatan
+            </p>
+            <p className="text-xs text-slate-300">
+              ✉️ pemdes.sidodadiasri@gmail.com
+            </p>
+          </div>
+        </div>
+
+        {/* Copyright */}
+        <div className="max-w-7xl mx-auto pt-4 text-center text-[10px] text-slate-400 flex flex-col md:flex-row justify-between items-center gap-2">
+          <p>© 2026 Pemerintah Desa Sidodadi Asri. Hak Cipta Dilindungi.</p>
+          <p className="text-amber-400/80 font-medium">
+            KKN Desa Sidodadi Asri
+          </p>
         </div>
       </footer>
     </main>
