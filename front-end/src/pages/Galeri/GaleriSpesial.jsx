@@ -11,10 +11,13 @@ import fotoZakiKacamata from "../../assets/images/zakikacamata.jpeg";
 import fotoRazka from "../../assets/images/razka.jpeg";
 import fotoFany from "../../assets/images/fany.jpeg";
 import fotoHafiz from "../../assets/images/hafiz.JPG";
+// 1. IMPORT FOTO ABIM
+import fotoAbim from "../../assets/images/abim.jpeg";
 
 const GaleriSpesial = () => {
   const navigate = useNavigate();
 
+  // 2. DATA TEAM (Total sekarang ada 9 anggota)
   const teamData = [
     {
       img: fotoFarhan,
@@ -27,6 +30,12 @@ const GaleriSpesial = () => {
       nama: "Zacky Ghozi Al Miqdad",
       jabatan: "Front-end Developer",
       color: "#33FF57",
+    },
+    {
+      img: fotoAbim,
+      nama: "Brahmantio Abimayu",
+      jabatan: "Front-end Developer",
+      color: "#00E5FF",
     },
     {
       img: fotoZakiKacamata,
@@ -147,9 +156,7 @@ const GaleriSpesial = () => {
       `}</style>
 
       <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center">
-        {/* ========================================================================= */}
-        {/* HEADER: JUDUL KIRI & TOMBOL KEMBALI (Sudah Menggunakan Card & Animasi) */}
-        {/* ========================================================================= */}
+        {/* HEADER: JUDUL KIRI & TOMBOL KEMBALI */}
         <div className="w-full mb-10 flex justify-between items-center">
           {/* Card Kiri: Galeri Spesial */}
           <div className="bg-[#022c22] px-3.5 py-2 sm:px-5 sm:py-2.5 rounded-full shadow-md border border-amber-500/30 flex items-center justify-center">
@@ -166,11 +173,8 @@ const GaleriSpesial = () => {
             <span>Kembali</span>
           </button>
         </div>
-        {/* ========================================================================= */}
 
-        {/* ========================================================================= */}
-        {/* SLIDER SECTION (Animasi & Rotasi Foto Tetap Utuh) */}
-        {/* ========================================================================= */}
+        {/* SLIDER SECTION */}
         <div className="relative flex flex-col items-center justify-center w-full h-[400px] md:h-[500px] mb-20">
           <div
             className="absolute z-0 w-64 h-64 md:w-96 md:h-96 rounded-full blur-[120px] opacity-25 transition-colors duration-1000"
@@ -242,11 +246,8 @@ const GaleriSpesial = () => {
             </motion.div>
           </AnimatePresence>
         </div>
-        {/* ========================================================================= */}
 
-        {/* ========================================================================= */}
         {/* SECTION VIDEO DENGAN BACKGROUND KERTAS PIN */}
-        {/* ========================================================================= */}
         <motion.section
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}

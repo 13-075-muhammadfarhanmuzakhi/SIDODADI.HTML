@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const API = "http://127.0.0.1:8000/api/pengumuman";
+const API = "https://desasidodadiasri.my.id/api/pengumuman";
 const Warna = {
   primary: "#2F4156",
   danger: "#DC2626",
@@ -41,7 +41,7 @@ const PengumumanAdmin = () => {
 
   // ================= HANDLE FORM =================
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const openCreate = () => {
@@ -49,19 +49,21 @@ const PengumumanAdmin = () => {
     setForm({
       judul: "",
       isi: "",
-      tanggal_kegiatan: "",
+      tanggal_kegiatan: new Date().toISOString().split("T")[0],
       status: "aktif",
     });
     setShowForm(true);
   };
 
   const openEdit = (item) => {
-    setEditing(item.id_pengumuman);
+    setEditing(item.id_pengumuman || item.id);
     setForm({
-      judul: item.judul,
-      isi: item.isi,
-      tanggal_kegiatan: item.tanggal_kegiatan ?? "",
-      status: item.status,
+      judul: item.judul || "",
+      isi: item.isi || "",
+      tanggal_kegiatan: item.tanggal_kegiatan
+        ? item.tanggal_kegiatan.split("T")[0]
+        : new Date().toISOString().split("T")[0],
+      status: item.status || "aktif",
     });
     setShowForm(true);
   };
@@ -73,6 +75,15 @@ const PengumumanAdmin = () => {
     const method = editing ? "PUT" : "POST";
     const url = editing ? `${API}/${editing}` : API;
 
+    // Pastikan data terisi dengan bersih sebelum dikirim ke Laravel
+    const payload = {
+      judul: form.judul.trim(),
+      isi: form.isi.trim(),
+      tanggal_kegiatan:
+        form.tanggal_kegiatan || new Date().toISOString().split("T")[0],
+      status: form.status || "aktif",
+    };
+
     try {
       const res = await fetch(url, {
         method,
@@ -80,19 +91,26 @@ const PengumumanAdmin = () => {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify(form),
+        body: JSON.stringify(payload),
       });
 
+      const resData = await res.json();
+
       if (!res.ok) {
-        const err = await res.json();
-        alert(err.message || "Gagal menyimpan pengumuman");
+        // Tampilkan rincian spesifik jika validasi Laravel menolak
+        if (resData.errors) {
+          const detailError = Object.values(resData.errors).flat().join("\n");
+          alert(`Gagal Menyimpan:\n${detailError}`);
+        } else {
+          alert(resData.message || "Gagal menyimpan pengumuman");
+        }
         return;
       }
 
       setShowForm(false);
       fetchData();
     } catch (e) {
-      alert("Server error");
+      alert("Terjadi kesalahan koneksi ke server.");
     }
   };
 
@@ -101,8 +119,18 @@ const PengumumanAdmin = () => {
     if (!confirm("Yakin ingin menghapus pengumuman ini?")) return;
 
     try {
-      await fetch(`${API}/${id}`, { method: "DELETE" });
-      fetchData();
+      const res = await fetch(`${API}/${id}`, {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      if (res.ok) {
+        fetchData();
+      } else {
+        alert("Gagal menghapus pengumuman dari server.");
+      }
     } catch (e) {
       alert("Gagal menghapus data");
     }
@@ -115,7 +143,7 @@ const PengumumanAdmin = () => {
         <h1 className="text-xl font-bold text-gray-800">Pengumuman Desa</h1>
         <button
           onClick={openCreate}
-          className="px-4 py-2 rounded-lg text-white text-sm font-medium"
+          className="px-4 py-2 rounded-lg text-white text-sm font-medium hover:opacity-90 transition"
           style={{ backgroundColor: Warna.primary }}
         >
           + Tambah Pengumuman
@@ -127,7 +155,9 @@ const PengumumanAdmin = () => {
         {loading ? (
           <div className="p-8 text-center text-gray-500">Memuat data...</div>
         ) : data.length === 0 ? (
-          <div className="p-8 text-center text-gray-500">Belum ada pengumuman.</div>
+          <div className="p-8 text-center text-gray-500">
+            Belum ada pengumuman.
+          </div>
         ) : (
           <table className="w-full text-sm">
             <thead className="bg-slate-100">
@@ -141,7 +171,7 @@ const PengumumanAdmin = () => {
             </thead>
             <tbody>
               {data.map((p, i) => (
-                <tr key={p.id_pengumuman} className="border-t">
+                <tr key={p.id_pengumuman || p.id || i} className="border-t">
                   <td className="p-3">{i + 1}</td>
                   <td className="p-3 font-medium">{p.judul}</td>
                   <td className="p-3">
@@ -163,13 +193,13 @@ const PengumumanAdmin = () => {
                   <td className="p-3 text-center space-x-2">
                     <button
                       onClick={() => openEdit(p)}
-                      className="px-3 py-1 text-sm rounded bg-blue-600 text-white"
+                      className="px-3 py-1 text-sm rounded bg-blue-600 text-white hover:bg-blue-700 transition"
                     >
                       Edit
                     </button>
                     <button
-                      onClick={() => remove(p.id_pengumuman)}
-                      className="px-3 py-1 text-sm rounded text-white"
+                      onClick={() => remove(p.id_pengumuman || p.id)}
+                      className="px-3 py-1 text-sm rounded text-white hover:opacity-90 transition"
                       style={{ backgroundColor: Warna.danger }}
                     >
                       Hapus
@@ -193,53 +223,73 @@ const PengumumanAdmin = () => {
               {editing ? "Edit Pengumuman" : "Tambah Pengumuman"}
             </h2>
 
-            <input
-              name="judul"
-              value={form.judul}
-              onChange={handleChange}
-              placeholder="Judul Pengumuman"
-              className="w-full border rounded px-3 py-2"
-              required
-            />
+            <div>
+              <label className="block text-xs font-semibold mb-1 text-gray-600">
+                Judul Pengumuman
+              </label>
+              <input
+                name="judul"
+                value={form.judul}
+                onChange={handleChange}
+                placeholder="Judul Pengumuman"
+                className="w-full border rounded px-3 py-2"
+                required
+              />
+            </div>
 
-            <textarea
-              name="isi"
-              value={form.isi}
-              onChange={handleChange}
-              placeholder="Isi Pengumuman"
-              className="w-full border rounded px-3 py-2 min-h-[120px]"
-              required
-            />
+            <div>
+              <label className="block text-xs font-semibold mb-1 text-gray-600">
+                Isi Pengumuman
+              </label>
+              <textarea
+                name="isi"
+                value={form.isi}
+                onChange={handleChange}
+                placeholder="Isi Pengumuman"
+                className="w-full border rounded px-3 py-2 min-h-[120px]"
+                required
+              />
+            </div>
 
-            <input
-              type="date"
-              name="tanggal_kegiatan"
-              value={form.tanggal_kegiatan}
-              onChange={handleChange}
-              className="w-full border rounded px-3 py-2"
-            />
+            <div>
+              <label className="block text-xs font-semibold mb-1 text-gray-600">
+                Tanggal Kegiatan
+              </label>
+              <input
+                type="date"
+                name="tanggal_kegiatan"
+                value={form.tanggal_kegiatan}
+                onChange={handleChange}
+                className="w-full border rounded px-3 py-2"
+              />
+            </div>
 
-            <select
-              name="status"
-              value={form.status}
-              onChange={handleChange}
-              className="w-full border rounded px-3 py-2"
-            >
-              <option value="aktif">Aktif</option>
-              <option value="nonaktif">Nonaktif</option>
-            </select>
+            <div>
+              <label className="block text-xs font-semibold mb-1 text-gray-600">
+                Status
+              </label>
+              <select
+                name="status"
+                value={form.status}
+                onChange={handleChange}
+                className="w-full border rounded px-3 py-2"
+              >
+                <option value="aktif">Aktif</option>
+                <option value="nonaktif">Nonaktif</option>
+              </select>
+            </div>
 
             <div className="flex justify-end gap-3 pt-4">
               <button
                 type="button"
                 onClick={() => setShowForm(false)}
-                className="px-4 py-2 rounded border"
+                className="px-4 py-2 rounded border hover:bg-gray-50 transition"
               >
                 Batal
               </button>
               <button
                 type="submit"
-                className="px-4 py-2 rounded text-white"
+                className="px-4 py-2 rounded text-white hover:opacity-90 transition"
                 style={{ backgroundColor: Warna.primary }}
               >
                 Simpan

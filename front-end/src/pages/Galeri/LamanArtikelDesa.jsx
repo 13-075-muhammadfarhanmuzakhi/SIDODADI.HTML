@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 
 import logoKKN from "../../assets/images/logokkn.png";
 
-const API_BASE = "http://127.0.0.1:8000/api/artikel";
-const IMAGE_BASE_URL = "http://127.0.0.1:8000/artikel/";
+const API_BASE = "https://desasidodadiasri.my.id/api/artikel";
+const IMAGE_BASE_URL = "https://desasidodadiasri.my.id/api/artikel/";
 
 // ================= 🎭 VARIANTS ANIMASI =================
 const containerVariants = {

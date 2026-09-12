@@ -320,7 +320,9 @@ const Home = () => {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/api/artikel");
+        const response = await fetch(
+          "https://desasidodadiasri.my.id/api/artikel",
+        );
         const data = await response.json();
         setArticles(data);
       } catch (err) {
@@ -332,7 +334,9 @@ const Home = () => {
 
     const fetchPengumuman = async () => {
       try {
-        const res = await fetch("http://127.0.0.1:8000/api/pengumuman-home");
+        const res = await fetch(
+          "https://desasidodadiasri.my.id/api/pengumuman-home",
+        );
         const data = await res.json();
         if (Array.isArray(data) && data.length > 0) {
           setPengumuman(data);
@@ -661,7 +665,7 @@ const Home = () => {
                   <div className="animated-gbg-inner flex flex-col h-full">
                     <div className="h-24 sm:h-30 overflow-hidden relative">
                       <img
-                        src={`http://127.0.0.1:8000/artikel/${item.img}`}
+                        src={`https://desasidodadiasri.my.id/api/artikel/${item.img}`}
                         alt={item.judul_artikel}
                         className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-300"
                         onError={(e) => {

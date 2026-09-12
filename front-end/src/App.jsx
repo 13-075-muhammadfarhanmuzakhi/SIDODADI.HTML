@@ -1,5 +1,6 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
+import ProtectedRoute from "./components/ProtectedRoute"; // Impor ProtectedRoute
 
 // ================= PUBLIC =================
 import Galeri from "./pages/Galeri/Galeri";
@@ -18,13 +19,12 @@ import AdminPengumuman from "./pages/Admin/Pengumuman";
 import AdminArtikel from "./pages/Admin/Artikel";
 import AdminDashboard from "./pages/Admin/Dashboard";
 import AdminLayanan from "./pages/Admin/Layanan";
-import AdminLayout from "./pages/Admin/Layouts/AdminLayouts";
 import AdminLogin from "./pages/Admin/Login";
 
 function App() {
   return (
     <Routes>
-      {/* PUBLIC */}
+      {/* PUBLIC ROUTES */}
       <Route element={<MainLayout />}>
         <Route path="/" element={<Home />} />
         <Route path="/kontak" element={<Kontak />} />
@@ -38,17 +38,22 @@ function App() {
         <Route path="/artikel-desa/:id" element={<LamanArtikelDesa />} />
       </Route>
 
-      {/* ADMIN LOGIN */}
+      {/* ADMIN PUBLIC ROUTE */}
+      <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
       <Route path="/admin/login" element={<AdminLogin />} />
 
-      {/* ADMIN AREA */}
-      <Route path="/admin" element={<AdminLayout />}>
-        <Route path="dashboard" element={<AdminDashboard />} />
-        <Route path="layanan" element={<AdminLayanan />} />
-        <Route path="artikel" element={<AdminArtikel />} />
-        <Route path="pengumuman" element={<AdminPengumuman />} />
-        <Route path="akun" element={<Akun />} />
+      {/* ADMIN PROTECTED ROUTES (Hanya bisa dibuka jika sudah login) */}
+      <Route element={<ProtectedRoute />}>
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/Dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/layanan" element={<AdminLayanan />} />
+        <Route path="/admin/artikel" element={<AdminArtikel />} />
+        <Route path="/admin/pengumuman" element={<AdminPengumuman />} />
+        <Route path="/admin/akun" element={<Akun />} />
       </Route>
+
+      {/* FALLBACK ROUTE: Jika alamat tidak ditemukan, lempar ke Home */}
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 }

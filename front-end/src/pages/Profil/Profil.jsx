@@ -31,7 +31,7 @@ const Profil = () => {
     const fetchPerangkat = async () => {
       try {
         const response = await fetch(
-          "http://localhost:8000/api/perangkat-desa",
+          "http://localhost:8000[https://desasidodadiasri.my.id/api](https://desasidodadiasri.my.id/api)perangkat-desa",
         );
         if (response.ok) {
           const data = await response.json();

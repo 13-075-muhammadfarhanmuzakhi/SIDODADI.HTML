@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const API = "http://127.0.0.1:8000/api/admin";
+const API = "https://desasidodadiasri.my.id/api/admin";
 const Warna = { primary: "#2F4156" };
 
 const Akun = () => {
@@ -38,7 +38,14 @@ const Akun = () => {
 
   const openAdd = () => {
     setEditId(null);
-    setForm({ nama: "", nik: "", username: "", password: "", no_telp: "", level: "Admin" });
+    setForm({
+      nama: "",
+      nik: "",
+      username: "",
+      password: "",
+      no_telp: "",
+      level: "Admin",
+    });
     setFoto(null);
     setPreview(null);
     setShow(true);
@@ -54,7 +61,9 @@ const Akun = () => {
       no_telp: a.no_telp || "",
       level: a.level,
     });
-    setPreview(a.foto ? `http://127.0.0.1:8000/admin/${a.foto}` : null);
+    setPreview(
+      a.foto ? `https://desasidodadiasri.my.id/api/admin/${a.foto}` : null,
+    );
     setFoto(null);
     setShow(true);
   };
@@ -115,14 +124,20 @@ const Akun = () => {
           <div className="p-12 text-center text-gray-500">Memuat data...</div>
         ) : data.length === 0 ? (
           <div className="p-12 text-center text-gray-500">
-            Belum ada data admin. Klik &quot;+ Tambah Admin&quot; atau jalankan seeder:{" "}
-            <code className="text-xs bg-gray-100 px-2 py-1 rounded">php artisan db:seed --class=AdminSeeder</code>
+            Belum ada data admin. Klik &quot;+ Tambah Admin&quot; atau jalankan
+            seeder:{" "}
+            <code className="text-xs bg-gray-100 px-2 py-1 rounded">
+              php artisan db:seed --class=AdminSeeder
+            </code>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="text-left text-white" style={{ backgroundColor: Warna.primary }}>
+                <tr
+                  className="text-left text-white"
+                  style={{ backgroundColor: Warna.primary }}
+                >
                   <th className="px-4 py-3 font-semibold w-12">No</th>
                   <th className="px-4 py-3 font-semibold w-16">Foto</th>
                   <th className="px-4 py-3 font-semibold">Nama</th>
@@ -135,23 +150,45 @@ const Akun = () => {
               </thead>
               <tbody>
                 {data.map((a, i) => (
-                  <tr key={a.id_admin} className="border-b border-gray-100 hover:bg-gray-50/50">
+                  <tr
+                    key={a.id_admin}
+                    className="border-b border-gray-100 hover:bg-gray-50/50"
+                  >
                     <td className="px-4 py-3 text-gray-600">{i + 1}</td>
                     <td className="px-4 py-3">
                       <img
-                        src={a.foto ? `http://127.0.0.1:8000/admin/${a.foto}` : "https://ui-avatars.com/api/?name=" + encodeURIComponent(a.nama || "A")}
+                        src={
+                          a.foto
+                            ? `https://desasidodadiasri.my.id/api/admin/${a.foto}`
+                            : "https://ui-avatars.com[https://desasidodadiasri.my.id/api](https://desasidodadiasri.my.id/api)?name=" +
+                              encodeURIComponent(a.nama || "A")
+                        }
                         alt=""
                         className="w-12 h-12 rounded-lg object-cover"
                       />
                     </td>
-                    <td className="px-4 py-3 font-medium text-gray-900">{a.nama}</td>
+                    <td className="px-4 py-3 font-medium text-gray-900">
+                      {a.nama}
+                    </td>
                     <td className="px-4 py-3 text-gray-700">{a.nik}</td>
                     <td className="px-4 py-3 text-gray-700">{a.username}</td>
-                    <td className="px-4 py-3 text-gray-600">{a.no_telp || "-"}</td>
+                    <td className="px-4 py-3 text-gray-600">
+                      {a.no_telp || "-"}
+                    </td>
                     <td className="px-4 py-3 text-gray-600">{a.level}</td>
                     <td className="px-4 py-3 flex gap-2">
-                      <button onClick={() => openEdit(a)} className="text-amber-700 bg-amber-100 hover:bg-amber-200 text-sm font-medium px-3 py-1.5 rounded-lg">Edit</button>
-                      <button onClick={() => hapus(a.id_admin)} className="text-red-700 bg-red-100 hover:bg-red-200 text-sm font-medium px-3 py-1.5 rounded-lg">Hapus</button>
+                      <button
+                        onClick={() => openEdit(a)}
+                        className="text-amber-700 bg-amber-100 hover:bg-amber-200 text-sm font-medium px-3 py-1.5 rounded-lg"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => hapus(a.id_admin)}
+                        className="text-red-700 bg-red-100 hover:bg-red-200 text-sm font-medium px-3 py-1.5 rounded-lg"
+                      >
+                        Hapus
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -163,45 +200,128 @@ const Akun = () => {
 
       {show && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <form onSubmit={submit} className="bg-white w-full max-w-md rounded-xl shadow-xl border border-gray-200 p-6 space-y-4">
-            <h2 className="text-lg font-bold text-gray-800">{editId ? "Edit" : "Tambah"} Admin</h2>
+          <form
+            onSubmit={submit}
+            className="bg-white w-full max-w-md rounded-xl shadow-xl border border-gray-200 p-6 space-y-4"
+          >
+            <h2 className="text-lg font-bold text-gray-800">
+              {editId ? "Edit" : "Tambah"} Admin
+            </h2>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Nama</label>
-              <input value={form.nama} onChange={(e) => setForm({ ...form, nama: e.target.value })} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" placeholder="Nama lengkap" required />
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Nama
+              </label>
+              <input
+                value={form.nama}
+                onChange={(e) => setForm({ ...form, nama: e.target.value })}
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+                placeholder="Nama lengkap"
+                required
+              />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">NIK (16 digit)</label>
-              <input value={form.nik} onChange={(e) => setForm({ ...form, nik: e.target.value })} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" maxLength={16} placeholder="NIK" required />
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                NIK (16 digit)
+              </label>
+              <input
+                value={form.nik}
+                onChange={(e) => setForm({ ...form, nik: e.target.value })}
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+                maxLength={16}
+                placeholder="NIK"
+                required
+              />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Username</label>
-              <input value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value })} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" placeholder="Username" required />
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Username
+              </label>
+              <input
+                value={form.username}
+                onChange={(e) => setForm({ ...form, username: e.target.value })}
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+                placeholder="Username"
+                required
+              />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">{editId ? "Password (kosongkan jika tidak diubah)" : "Password"}</label>
-              <input type="password" value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" placeholder="Password" />
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                {editId ? "Password (kosongkan jika tidak diubah)" : "Password"}
+              </label>
+              <input
+                type="password"
+                value={form.password}
+                onChange={(e) => setForm({ ...form, password: e.target.value })}
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+                placeholder="Password"
+              />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">No Telp</label>
-              <input value={form.no_telp} onChange={(e) => setForm({ ...form, no_telp: e.target.value })} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm" placeholder="No telepon" />
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                No Telp
+              </label>
+              <input
+                value={form.no_telp}
+                onChange={(e) => setForm({ ...form, no_telp: e.target.value })}
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+                placeholder="No telepon"
+              />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Level</label>
-              <select value={form.level} onChange={(e) => setForm({ ...form, level: e.target.value })} className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Level
+              </label>
+              <select
+                value={form.level}
+                onChange={(e) => setForm({ ...form, level: e.target.value })}
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+              >
                 <option value="Admin">Admin</option>
                 <option value="Operator">Operator</option>
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Foto</label>
-              <input type="file" accept="image/*" onChange={(e) => { setFoto(e.target.files?.[0]); setPreview(e.target.files?.[0] ? URL.createObjectURL(e.target.files[0]) : null); }} className="w-full text-sm" />
-              {preview && <img src={preview} alt="" className="mt-2 w-24 h-24 rounded-lg object-cover border border-gray-200" />}
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Foto
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  setFoto(e.target.files?.[0]);
+                  setPreview(
+                    e.target.files?.[0]
+                      ? URL.createObjectURL(e.target.files[0])
+                      : null,
+                  );
+                }}
+                className="w-full text-sm"
+              />
+              {preview && (
+                <img
+                  src={preview}
+                  alt=""
+                  className="mt-2 w-24 h-24 rounded-lg object-cover border border-gray-200"
+                />
+              )}
             </div>
 
             <div className="flex justify-end gap-2 pt-2">
-              <button type="button" onClick={() => setShow(false)} className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg text-sm font-medium">Batal</button>
-              <button type="submit" className="text-white px-4 py-2 rounded-lg text-sm font-medium hover:opacity-90" style={{ backgroundColor: Warna.primary }}>Simpan</button>
+              <button
+                type="button"
+                onClick={() => setShow(false)}
+                className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg text-sm font-medium"
+              >
+                Batal
+              </button>
+              <button
+                type="submit"
+                className="text-white px-4 py-2 rounded-lg text-sm font-medium hover:opacity-90"
+                style={{ backgroundColor: Warna.primary }}
+              >
+                Simpan
+              </button>
             </div>
           </form>
         </div>

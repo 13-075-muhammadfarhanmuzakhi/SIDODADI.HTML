@@ -17,7 +17,7 @@ const StrukturOrganisasi = () => {
     const fetchPerangkat = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8000/api/perangkat-desa",
+          "http://localhost:8000[https://desasidodadiasri.my.id/api](https://desasidodadiasri.my.id/api)perangkat-desa",
         );
         if (response.data && response.data.length > 0) {
           setPerangkat(response.data);
@@ -91,4 +91,3 @@ const StrukturOrganisasi = () => {
 };
 
 export default StrukturOrganisasi;
-    

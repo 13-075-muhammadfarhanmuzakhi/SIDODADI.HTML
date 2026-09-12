@@ -6,7 +6,7 @@ import logoKKN from "../../assets/images/logokkn.png";
 import bgUp from "../../assets/contacts/bg-up.png";
 import arrowIcon from "../../assets/contacts/circle-web.svg";
 
-const API = "http://127.0.0.1:8000/api/artikel";
+const API = "https://desasidodadiasri.my.id/api/artikel";
 
 // ================= 🎭 VARIANTS ANIMASI =================
 const pageHeaderVariants = {
@@ -161,7 +161,7 @@ const Galeri = () => {
                 <img
                   src={
                     featured[0].img
-                      ? `http://127.0.0.1:8000/artikel/${featured[0].img}`
+                      ? `https://desasidodadiasri.my.id/api/artikel/${featured[0].img}`
                       : bgUp
                   }
                   className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-700 ease-out"
@@ -197,7 +197,7 @@ const Galeri = () => {
                   <img
                     src={
                       item.img
-                        ? `http://127.0.0.1:8000/artikel/${item.img}`
+                        ? `https://desasidodadiasri.my.id/api/artikel/${item.img}`
                         : bgUp
                     }
                     className="w-full h-full object-cover group-hover:scale-105 transition duration-700 ease-out"
@@ -272,7 +272,7 @@ const Galeri = () => {
                         <img
                           src={
                             item.img
-                              ? `http://127.0.0.1:8000/artikel/${item.img}`
+                              ? `https://desasidodadiasri.my.id/api/artikel/${item.img}`
                               : bgUp
                           }
                           className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
@@ -324,7 +324,7 @@ const Galeri = () => {
               Galeri Spesial
             </span>
             <div className="w-7 h-7 sm:w-8 sm:h-8 bg-[#B8860B] rounded-full flex items-center justify-center group-hover:rotate-12 transition-transform shadow-xs">
-              <span className="text-white text-xs">✨</span>
+              <span className="text-white text-xs"></span>
             </div>
           </Link>
         </motion.div>
